@@ -1,8 +1,0 @@
-class ResidentialTenant{
-    constructor() {
-    }
-
-    draw(){
-
-    }
-}
