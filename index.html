@@ -11,8 +11,10 @@
     <script type="application/javascript" src="WalledCity/floor.js"></script>
     <script type="application/javascript" src="WalledCity/neighbor.js"></script>
     <script type="application/javascript" src="WalledCity/tenant.js"></script>
+    <script type="application/javascript" src="WalledCity/stairs.js"></script>
     <script type="application/javascript" src="WalledCity/lobby.js"></script>
     <script type="application/javascript" src="WalledCity/demand.js"></script>
+    <script type="application/javascript" src="WalledCity/route.js"></script>
     <!--  Residences  -->
     <script type="application/javascript" src="WalledCity/residences/residential_residence.js"></script>
     <script type="application/javascript" src="WalledCity/residences/commercial_residence.js"></script>
@@ -175,6 +177,14 @@
     .basement-wall-n2n{
         background-image: url("img/rooms/basement-wall-n2n.png");
     }
+    .stairs-r{
+        background-color:#989898;
+        background-image: url("img/rooms/stairs-r.png");
+    }
+    .stairs-l{
+        background-color:#989898;
+        background-image: url("img/rooms/stairs-l.png");
+    }
 
     /** Residences **/
     .residential-empty{
@@ -236,6 +246,13 @@
     }
     #tenant-ico {
         background-image: url("img/gui/tenant-ico.png");
+    }
+    #stairs-ico {
+        background-image: url("img/gui/stairs-ico.png");
+    }
+
+    .no-lobby{
+        background-color: red;
     }
 
 </style>

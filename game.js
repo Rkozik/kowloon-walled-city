@@ -33,7 +33,7 @@ class Game {
             new_floor_dom.append(new_node_container);
 
             // Populate floor nodes
-            let new_floor = new Floor(i);
+            let new_floor = new Floor(i, this.tower);
             let total_floor_nodes = Math.floor(this.width / 48);
             for(let j=0;j<total_floor_nodes;j++){
                 let new_node_div = document.createElement('div');

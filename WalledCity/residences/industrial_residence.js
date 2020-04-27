@@ -11,6 +11,7 @@ class IndustrialResidence{
             this.node.domElement.classList.add("industrial-empty");
         }
         this.checkDemand();
+        this.checkLobbyConnection();
     }
 
     canConstruct(){
@@ -33,5 +34,20 @@ class IndustrialResidence{
                 self.handleDemand();
             }
         }, 1000 * 20);
+    }
+
+    checkLobbyConnection(){
+        let self = this;
+        setInterval(function () {
+            let lobby_node = self.utils.getLobbyNode(self.tower);
+            let lobby_connection = self.route.traverse(self.node,lobby_node);
+            if(lobby_connection.length < 1){
+                self.node.domElement.classList.add("no-lobby");
+                setTimeout(function () {
+                    self.node.domElement.classList.remove("no-lobby")
+                }, 1000)
+            }
+
+        }, 5000);
     }
 }

@@ -20,6 +20,7 @@ class Toolbar{
         this.createToolbarIcon("industrial-ico");
         this.createToolbarIcon("lobby-ico");
         this.createToolbarIcon("tenant-ico");
+        this.createToolbarIcon("stairs-ico");
         this.gameboard.prepend(this.toolbar);
     }
 
@@ -39,6 +40,9 @@ class Toolbar{
                 break;
             case "tenant-ico":
                 this.gui.updatePointer("tenant");
+                break;
+            case "stairs-ico":
+                this.gui.updatePointer("stairs");
                 break;
             default:
                 this.gui.updatePointer("pointer");

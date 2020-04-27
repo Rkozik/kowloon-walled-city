@@ -42,6 +42,10 @@ class GUI{
                 let industrial_residence = new IndustrialResidence(node, this.tower);
                 industrial_residence.draw();
                 break;
+            case "stairs":
+                let stairs = new Stairs(node, this.tower);
+                stairs.draw();
+                break;
             default:
                 break;
         }
@@ -79,6 +83,9 @@ class GUI{
                 break;
             case "tenant":
                 cursor_styles.innerText = "body{cursor:url('img/gui/tenant-ico.png'), pointer;}";
+                break;
+            case "stairs":
+                cursor_styles.innerText = "body{cursor:url('img/gui/stairs-ico.png'), pointer;}";
                 break;
             default:
                 cursor_styles.innerText = "body{cursor: pointer;}";
