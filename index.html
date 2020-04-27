@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kowloon Walled City</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+    <!--  Game Components -->
+    <script type="application/javascript" src="WalledCity/utils.js"></script>
+    <script type="application/javascript" src="WalledCity/tower.js"></script>
+    <script type="application/javascript" src="WalledCity/node.js"></script>
+    <script type="application/javascript" src="WalledCity/floor.js"></script>
+    <script type="application/javascript" src="WalledCity/neighbor.js"></script>
+    <script type="application/javascript" src="WalledCity/tenant.js"></script>
+    <script type="application/javascript" src="WalledCity/lobby.js"></script>
+    <script type="application/javascript" src="WalledCity/demand.js"></script>
+    <!--  Residences  -->
+    <script type="application/javascript" src="WalledCity/residences/residential_residence.js"></script>
+    <script type="application/javascript" src="WalledCity/residences/commercial_residence.js"></script>
+    <script type="application/javascript" src="WalledCity/residences/industrial_residence.js"></script>
+    <!--  Graphical UI  -->
+    <script type="application/javascript" src="WalledCity/gui/toolbar.js"></script>
+    <script type="application/javascript" src="WalledCity/gui/gui.js"></script>
+    <!--  The Game  -->
+    <script type="application/javascript" src="game.js"></script>
+</head>
+<style>
+    #gameboard-outer-border{
+        border: 1px solid #d8d6d6;
+        width: 1046px;
+        height: 790px;
+        margin: 0 auto;
+        border-radius: 22px;
+        overflow: hidden;
+        display: flex;
+    }
+    #gameboard {
+        margin: 0 auto;
+        width: 1536px;
+        height: 768px;
+        background-color: lightgrey;
+        border: 10px solid #efefef;
+        border-radius: 20px;
+        overflow-y: scroll;
+        top: 1px;
+        position: relative;
+    }
+    .floor{
+        display:flex;
+        width:1336px;
+        height:50px;
+    }
+
+    /** Background styles **/
+    .underground-bg{
+        background-image:url('img/ubg.png');
+        background-color:#868686;
+    }
+
+    .sky-bg{
+        background-color:#d0d0d0;
+    }
+
+    #floor_6{
+        background-image:url('img/ground-bg.png');
+    }
+
+    .birb{
+        width: 12px;
+        height: 50px;
+        background-image: url(img/birb.png);
+        position: absolute;
+        display: inline-block;
+        z-index:2;
+    }
+    .tree-solid{
+        width: 26px;
+        height: 50px;
+        background-image: url(img/tree-solid.png);
+        background-position-y: -4px;
+        position: absolute;
+        display: inline-block;
+        z-index:2;
+    }
+    .tree-hollow{
+        width: 26px;
+        height: 50px;
+        background-image: url(img/tree-hollow.png);
+        background-position-y: -4px;
+        position: absolute;
+        display: inline-block;
+        z-index:2;
+    }
+    .bench{
+         width: 22px;
+         height: 50px;
+         background-image: url(img/bench.png);
+         background-position-y: -4px;
+         position: absolute;
+         display: inline-block;
+         z-index:2;
+     }
+    .fence-small{
+         width: 34px;
+         height: 50px;
+         background-image: url(img/fence-small.png);
+         background-position-y: -4px;
+         position: absolute;
+         display: inline-block;
+         z-index:1;
+     }
+    .bus{
+        width:68px;
+        height:56px;
+        background-image: url(img/bus.png);
+        position: absolute;
+        bottom: -1393px;
+        right: -320px;
+        display: inline-block;
+        z-index:2;
+    }
+
+    /** Nodes **/
+    .node-container{
+        z-index:100;
+        width:auto;
+        margin:0 auto;
+        display:flex;
+    }
+    .node{
+        display:inline-block;
+        width:48px;
+        height:50px;
+        z-index: 101;
+    }
+    /** Building basics **/
+    .lobby {
+        background-color:#e4e4e4;
+        background-image: url("img/rooms/lobby-bg.png");
+    }
+    .empty{
+        background-color:#e4e4e4;
+        background-image: url("img/rooms/empty_1x1.png");
+    }
+    .empty-basement{
+        background-color:#989898;
+        background-image: url("img/rooms/empty_1x1.png");
+    }
+    .entrance-east{
+        background-image: url("img/rooms/entrance-east.png");
+    }
+    .entrance-west{
+        background-image: url("img/rooms/entrance-west.png");
+    }
+    .balcony-east{
+        background-image: url("img/rooms/balcony-east.png");
+    }
+    .balcony-west{
+        background-image: url("img/rooms/balcony-west.png");
+    }
+    .balcony-top-east{
+        background-image: url("img/rooms/balcony-top-east.png");
+    }
+    .balcony-top-west{
+        background-image: url("img/rooms/balcony-top-west.png");
+    }
+    .clothes-line-n2n{
+        background-image: url("img/rooms/clothes-line.png");
+    }
+    .basement-wall-east{
+        background-image: url("img/rooms/basement-wall-east.png");
+    }
+    .basement-wall-west{
+        background-image: url("img/rooms/basement-wall-west.png");
+    }
+    .basement-wall-n2n{
+        background-image: url("img/rooms/basement-wall-n2n.png");
+    }
+
+    /** Residences **/
+    .residential-empty{
+        background-color:#71b58d;
+        background-image: url("img/rooms/empty_1x1.png");
+    }
+    .commercial-empty{
+        background-color:#578ab7;
+        background-image: url("img/rooms/empty_1x1.png");
+    }
+    .industrial-empty{
+        background-color:#e2b646;
+        background-image: url("img/rooms/empty_1x1.png");
+    }
+    .residential-occupied{
+        background-color:#71b58d;
+        background-image: url("img/residences/residential-occupied.png");
+    }
+    .commercial-occupied{
+        background-color:#578ab7;
+        background-image: url("img/residences/commercial-occupied.png");
+    }
+    .industrial-occupied{
+        background-color:#e2b646;
+        background-image: url("img/residences/industrial-occupied.png");
+    }
+
+    /** Toolbar **/
+    #toolbar {
+        top: 0;
+        left: 0;
+        width: auto;
+        padding: 10px 0 6px 0;
+        position: sticky;
+        background-color: #4a4a4b;
+        z-index:102;
+    }
+    .toolbar-ico {
+        height: 30px;
+        width: 30px;
+        margin-left: 10px;
+        display: inline-block;
+        z-index:102;
+    }
+        .toolbar-ico:hover{
+            cursor:pointer;
+        }
+    #residential-ico {
+        background-image: url("img/gui/residential-ico.png");
+    }
+    #commercial-ico {
+        background-image: url("img/gui/commercial-ico.png");
+    }
+    #industrial-ico {
+        background-image: url("img/gui/industrial-ico.png");
+    }
+    #lobby-ico {
+        background-image: url("img/gui/lobby-ico.png");
+    }
+    #tenant-ico {
+        background-image: url("img/gui/tenant-ico.png");
+    }
+
+</style>
+<body>
+<div id="gameboard-outer-border">
+    <div id="gameboard"></div>
+</div>
+
+<script type="application/javascript">
+    let game = new Game();
+    game.setup();
+    game.run();
+</script>
+</body>
+</html>
