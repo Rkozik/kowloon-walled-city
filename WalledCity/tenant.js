@@ -71,7 +71,7 @@ class Tenant{
             this.neighbors.easternNeighbor() &&
             this.neighbors.westernNeighbor() &&
             this.node.floor_id > 6 &&
-            this.node.domElement.classList[1] !== "empty"
+            !this.isOccupied()
         )
     }
 
@@ -80,7 +80,7 @@ class Tenant{
             this.neighbors.southernNeighbor() &&
             this.neighbors.easternNeighbor() &&
             this.neighbors.westernNeighbor() &&
-            this.node.domElement.classList[1] !== "empty" &&
+            !this.isOccupied() &&
             this.neighbors.northernNeighbor().domElement.classList[1] &&
             !this.neighbors.northernNeighbor().domElement.classList[1].includes("entrance") &&
             this.node.floor_id < 6
@@ -88,9 +88,9 @@ class Tenant{
     }
 
     isOccupied(){
-        console.log(this.node.domElement.classList.length);
         if(this.node.domElement.classList.length > 1){
-            if(this.node.domElement.classList[1].includes("occupied")){
+            if(this.node.domElement.classList[1].includes("occupied") ||
+                this.node.domElement.classList[1].includes("empty") ){
                 return true;
             }
         }
