@@ -7,7 +7,7 @@ class Tenant{
     }
 
     draw(){
-        if(this.canConstruct()) {
+        if(this.canConstructAboveGround()) {
             if (this.neighbors.southernNeighbor().domElement.classList[1]) {
                 if (!this.neighbors.southernNeighbor().domElement.classList[1].includes("entrance") &&
                     !this.neighbors.southernNeighbor().domElement.classList[1].includes("balcony")) {
@@ -37,13 +37,12 @@ class Tenant{
                     }
                 }
             }
-            if(this.neighbors.northernNeighbor().domElement.classList[1]){
-                if( this.neighbors.northernNeighbor().domElement.classList[1].includes("lobby") ||
-                    this.neighbors.northernNeighbor().domElement.classList[1].includes("empty-basement")){
-                    this.node.domElement.setAttribute('style','');
-                    this.node.domElement.className = "node";
-                    this.node.domElement.classList.add("empty-basement");
-                }
+        }
+        if(this.canConstructUnderground()){
+            if(this.neighbors.northernNeighbor().domElement.classList[1] && this.node.floor_id < 6){
+                this.node.domElement.className = "node";
+                this.node.domElement.classList.add("empty-basement");
+                this.utils.removeBackgroundImages(this.node);
 
                 if(this.neighbors.southernNeighbor().domElement.classList.length === 1){
                     this.neighbors.southernNeighbor().domElement.setAttribute('style','background-image:url("img/rooms/basement-bg.png")');
@@ -66,12 +65,35 @@ class Tenant{
         }
     }
 
-    canConstruct(){
+    canConstructAboveGround(){
         return !!(this.neighbors.northernNeighbor() &&
             this.neighbors.southernNeighbor() &&
             this.neighbors.easternNeighbor() &&
             this.neighbors.westernNeighbor() &&
-            this.node.floor_id !== 6 &&
-            this.node.domElement.classList[1] !== "empty");
+            this.node.floor_id > 6 &&
+            this.node.domElement.classList[1] !== "empty"
+        )
+    }
+
+    canConstructUnderground(){
+        return !!(this.neighbors.northernNeighbor() &&
+            this.neighbors.southernNeighbor() &&
+            this.neighbors.easternNeighbor() &&
+            this.neighbors.westernNeighbor() &&
+            this.node.domElement.classList[1] !== "empty" &&
+            this.neighbors.northernNeighbor().domElement.classList[1] &&
+            !this.neighbors.northernNeighbor().domElement.classList[1].includes("entrance") &&
+            this.node.floor_id < 6
+        )
+    }
+
+    isOccupied(){
+        console.log(this.node.domElement.classList.length);
+        if(this.node.domElement.classList.length > 1){
+            if(this.node.domElement.classList[1].includes("occupied")){
+                return true;
+            }
+        }
+        return false;
     }
 }

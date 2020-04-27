@@ -66,4 +66,17 @@ class Utils{
 
         node.domElement.setAttribute('style', style_string);
     }
+
+    removeBackgroundImages(node){
+        let styles = this.getStyles(node);
+        styles.delete("background-image");
+
+        let style_string = "";
+        styles.forEach(function (v, k) {
+            let new_style = k + ":" + v + ";";
+            style_string += new_style;
+        });
+
+        node.domElement.setAttribute('style', style_string);
+    }
 }
