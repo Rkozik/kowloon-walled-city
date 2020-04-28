@@ -99,4 +99,8 @@ class Utils{
         }
         return false;
     }
+
+    nodeIsConnected(node, tower){
+        return tower.getFloor(node.floor_id).connected;
+    }
 }

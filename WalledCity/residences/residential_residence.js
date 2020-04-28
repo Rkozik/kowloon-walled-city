@@ -9,6 +9,7 @@ class ResidentialResidence{
         if(this.canConstruct()){
             this.node.domElement.className = "node";
             this.node.domElement.classList.add("residential-empty");
+            this.node.type = "residential-empty";
         }
         this.checkDemand();
         this.increaseDemand();
@@ -19,9 +20,11 @@ class ResidentialResidence{
     }
 
     handleDemand(){
-        if(this.node.domElement.classList[1] === "residential-empty" && this.tower.demand.residential >= 1){
+        let isConnected = this.utils.nodeIsConnected(this.node, this.tower);
+        if(this.node.domElement.classList[1] === "residential-empty" && this.tower.demand.residential >= 1 && isConnected){
             this.node.domElement.className = "node";
             this.node.domElement.classList.add("residential-occupied");
+            this.node.type = "residential-occupied";
             this.tower.demand.decreaseResidentialDemand(1);
             this.tower.demand.increaseCommercialDemand(0.05);
         }
@@ -39,7 +42,7 @@ class ResidentialResidence{
     increaseDemand(){
         let self = this;
         setInterval(function () {
-            if(self.node.domElement.classList[1] === "residential-occupied"){
+            if(self.node.type === "residential-occupied"){
                 self.tower.demand.increaseCommercialDemand(0.025);
             }
         }, 1000 * 45);

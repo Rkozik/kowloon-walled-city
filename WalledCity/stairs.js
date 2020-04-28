@@ -9,11 +9,10 @@ class Stairs{
 
     draw(){
         if(this.canConstruct()){
-            // if(!this.isLobby()){
-                this.node.domElement.className = "node";
-                this.node.domElement.classList.add("stairs-l");
-                this.repaintStairs(this.traverseDown(this.node));
-            // }
+            this.node.domElement.className = "node";
+            this.node.domElement.classList.add("stairs-l");
+            this.node.type = "stairs";
+            this.repaintStairs(this.traverseDown(this.node));
         }
     }
 
@@ -29,7 +28,7 @@ class Stairs{
             node.domElement.classList.add("stairs-l");
         }
 
-        if(this.isTopFloor(node) || !northern_neighbor.domElement.classList[1].includes("stairs")){
+        if(this.isTopFloor(node) || northern_neighbor.type !== "stairs"){
             return;
         }
 
@@ -39,7 +38,7 @@ class Stairs{
     traverseDown(node){
         let southern_neighbor = new Neighbor(node, this.tower).southernNeighbor();
         if(southern_neighbor.domElement.classList.length > 1){
-            if(southern_neighbor.domElement.classList[1].includes("stairs")){
+            if(southern_neighbor.type === "stairs"){
                 return this.traverseDown(southern_neighbor);
             }
         }

@@ -4,6 +4,7 @@ class Floor {
         this.node_list = [];
         this.tower = tower;
         this.route = new Route(this.tower);
+        this.connected = true;
         this.isConnected();
         this.utils = new Utils();
     }
@@ -49,6 +50,7 @@ class Floor {
                 let lobby_node = self.utils.getLobbyNode(self.tower);
                 let lobby_connection = self.route.traverse(node,lobby_node);
                 if(lobby_connection.length < 1){
+                    self.connected = false;
                     for(let i=0;i<self.node_list.length;i++){
                         if(self.utils.isOccupied(self.node_list[i])){
                             self.node_list[i].domElement.classList.add("no-lobby");
@@ -57,6 +59,8 @@ class Floor {
                             }, 1000);
                         }
                     }
+                } else {
+                    self.connected = true;
                 }
             }
         }, 5000);

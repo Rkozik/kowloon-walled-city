@@ -2,6 +2,7 @@ class Node{
     constructor(floor, position) {
         this.floor_id = floor;
         this.position_id = position;
+        this.type = null;
     }
 
     get floor(){

@@ -9,10 +9,10 @@ class CommercialResidence{
         if(this.canConstruct()){
             this.node.domElement.className = "node";
             this.node.domElement.classList.add("commercial-empty");
+            this.node.type = "commercial-empty";
         }
         this.checkDemand();
         this.increaseDemand();
-        this.checkLobbyConnection();
     }
 
     canConstruct(){
@@ -20,9 +20,11 @@ class CommercialResidence{
     }
 
     handleDemand(){
-        if(this.node.domElement.classList[1] === "commercial-empty" && this.tower.demand.commercial >= 1){
+        let isConnected = this.utils.nodeIsConnected(this.node, this.tower);
+        if(this.node.domElement.classList[1] === "commercial-empty" && this.tower.demand.commercial >= 1 && isConnected){
             this.node.domElement.className = "node";
             this.node.domElement.classList.add("commercial-occupied");
+            this.node.type = "commercial-occupied";
             this.tower.demand.decreaseCommercialDemand(1);
             this.tower.demand.increaseResidentialDemand(2);
             this.tower.demand.increaseIndustrialDemand(0.5);
@@ -41,24 +43,9 @@ class CommercialResidence{
     increaseDemand(){
         let self = this;
         setInterval(function () {
-            if(self.node.domElement.classList[1] === "commercial-occupied"){
+            if(self.node.type === "commercial-occupied"){
                 self.tower.demand.increaseIndustrialDemand(0.05);
             }
         }, 1000 * 75);
-    }
-
-    checkLobbyConnection(){
-        let self = this;
-        setInterval(function () {
-            let lobby_node = self.utils.getLobbyNode(self.tower);
-            let lobby_connection = self.route.traverse(self.node,lobby_node);
-            if(lobby_connection.length < 1){
-                self.node.domElement.classList.add("no-lobby");
-                setTimeout(function () {
-                    self.node.domElement.classList.remove("no-lobby")
-                }, 1000)
-            }
-
-        }, 5000);
     }
 }
