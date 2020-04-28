@@ -9,7 +9,8 @@ class Game {
 
     setup(){
         const gameboard = document.getElementById("gameboard");
-        const utils = new Utils();
+        const utils = new DrawUtils();
+        const random_utils = new RandomUtils();
 
         let total_floors = 2400 / 50;
         for(let i=0;i<total_floors;i++){
@@ -53,7 +54,7 @@ class Game {
         let props = [];
         for(let j=0;j<20;j++){
 
-            let prop = utils.notPreviousRoll(1, 6, props);
+            let prop = random_utils.notPreviousRoll(1, 6, props);
             let new_decoration = document.createElement('div');
             let position = 0;
 
