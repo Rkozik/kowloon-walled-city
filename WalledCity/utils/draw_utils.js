@@ -1,29 +1,14 @@
-class Utils{
+class DrawUtils{
     constructor() {
     }
 
-    randomInRange(min, max){
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    randomInArray(array){
-        return array[Math.floor(Math.random() * array.length)];
-    }
-
     notWithin30Pixels(min, max, rolls){
-        let roll = this.randomInRange(min, max) * 2;
+        let random_utils = new RandomUtils();
+        let roll = random_utils.randomInRange(min, max) * 2;
         for(let i=0;i<rolls.length;i++){
             if(Math.abs(roll - rolls[i]) < 30){
                 return this.notWithin30Pixels(min, max, rolls);
             }
-        }
-        return roll;
-    }
-
-    notPreviousRoll(min, max, rolls){
-        let roll = this.randomInRange(min, max);
-        if(roll === rolls.pop()){
-            return this.notPreviousRoll(min, max, rolls);
         }
         return roll;
     }
@@ -82,29 +67,5 @@ class Utils{
         });
 
         node.domElement.setAttribute('style', style_string);
-    }
-
-    getLobbyNode(tower){
-        let lobby_nodes = tower.getFloor(6).node_list;
-        for(let i=0;i<lobby_nodes.length;i++){
-            if(lobby_nodes[i].domElement.classList[1] === "lobby"){
-                return lobby_nodes[i];
-            }
-        }
-        return false;
-    }
-
-    isOccupied(node){
-        if(node.domElement.classList.length > 1){
-            if(node.domElement.classList[1].includes("occupied") ||
-                node.domElement.classList[1].includes("empty") ){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    nodeIsConnected(node, tower){
-        return tower.getFloor(node.floor_id).connected;
     }
 }
