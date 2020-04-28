@@ -6,6 +6,10 @@ class Utils{
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
+    randomInArray(array){
+        return array[Math.floor(Math.random() * array.length)];
+    }
+
     notWithin30Pixels(min, max, rolls){
         let roll = this.randomInRange(min, max) * 2;
         for(let i=0;i<rolls.length;i++){
