@@ -1,4 +1,4 @@
-class Tenant{
+class Unit{
     constructor(node, tower) {
         this.node = node;
         this.tower = tower;

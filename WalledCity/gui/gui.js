@@ -27,7 +27,7 @@ class GUI{
                 lobby.draw();
                 break;
             case "tenant":
-                let tenant = new Tenant(node, this.tower);
+                let tenant = new Unit(node, this.tower);
                 tenant.draw();
                 break;
             case "residential":
