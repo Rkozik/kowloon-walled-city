@@ -3,7 +3,7 @@ class Lobby{
         this.node = node;
         this.tower = tower;
         this.neighbors = new Neighbor(this.node, this.tower);
-        this.utils = new Utils();
+        this.utils = new DrawUtils();
     }
 
     draw(){

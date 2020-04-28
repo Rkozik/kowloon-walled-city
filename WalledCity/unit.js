@@ -3,7 +3,7 @@ class Unit{
         this.node = node;
         this.tower = tower;
         this.neighbors = new Neighbor(this.node, this.tower);
-        this.utils = new Utils();
+        this.utils = new DrawUtils();
     }
 
     draw(){
@@ -84,6 +84,60 @@ class Unit{
                 }
             }
         }
+
+        this.isConnected();
+    }
+
+    isConnected(){
+        let self = this;
+        setInterval(function () {
+            if(!self.checkLobbyConnection()){
+                self.warnRow(self.node);
+            }
+        }, 5000)
+    }
+
+    checkLobbyConnection(){
+        if(this.node.type !== null && this.node.type !== "lobby" &&
+                (this.neighbors.westernNeighbor().type === "balcony" ||
+                    this.neighbors.westernNeighbor().type === "clothes-line")){
+
+            let lobby = this.traverseToLobby(this.node);
+            let route = new Route(this.tower);
+            return route.traverse(this.node, lobby).length > 0;
+        }
+        return true
+    }
+
+    warnRow(node){
+        let neighbors = new Neighbor(node, this.tower);
+        if(node.type === "balcony" || node.type === "clothes-line"){
+            return true;
+        }
+
+        node.domElement.classList.add("no-lobby");
+        setTimeout(function () {
+            node.domElement.classList.remove("no-lobby");
+        }, 500);
+
+        return this.warnRow(neighbors.easternNeighbor());
+
+    }
+
+    traverseToLobby(node){
+        let neighbors = new Neighbor(node, this.tower);
+
+        if(neighbors.westernNeighbor().type === "entrance"){
+            return node;
+        }
+
+        if(node.floor_id === 6){
+            if(neighbors.westernNeighbor() !== "entrance"){
+                return this.traverseToLobby(neighbors.westernNeighbor());
+            }
+        }
+
+        return this.traverseToLobby(neighbors.southernNeighbor());
     }
 
     canConstructAboveGround(){

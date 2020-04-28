@@ -1,6 +1,6 @@
 class CommercialResidence{
     constructor(node, tower) {
-        this.utils = new Utils();
+        this.utils = new DrawUtils();
         this.node = node;
         this.tower = tower;
     }
@@ -20,8 +20,7 @@ class CommercialResidence{
     }
 
     handleDemand(){
-        let isConnected = this.utils.nodeIsConnected(this.node, this.tower);
-        if(this.node.domElement.classList[1] === "commercial-empty" && this.tower.demand.commercial >= 1 && isConnected){
+        if(this.node.domElement.classList[1] === "commercial-empty" && this.tower.demand.commercial >= 1){
             this.node.domElement.className = "node";
             this.node.domElement.classList.add("commercial-occupied");
             this.node.type = "commercial-occupied";

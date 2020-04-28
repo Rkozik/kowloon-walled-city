@@ -6,6 +6,7 @@ class Tenant{
         this.location = null;
         this.home = node;
         this.tower = tower;
+        this.random_utils = new RandomUtils();
     }
 
     draw(){
@@ -24,7 +25,7 @@ class Tenant{
 
             // Wake up at 6:00-8:00 AM
             let wakeup = [2500*6, 2500*7, 2500*8];
-            let wakeup_time = self.utils.randomInArray(wakeup);
+            let wakeup_time = self.random_utils.randomInArray(wakeup);
             let wakeup_animation = 2500;
             setTimeout(function () {
 
@@ -49,7 +50,7 @@ class Tenant{
 
             // Stay at work for 4-8 hours
             let work_times = [2500*4,2500*5,2500*6,2500*7,2500*8];
-            let work_time = self.utils.randomInArray(work_times);
+            let work_time = self.random_utils.randomInArray(work_times);
 
             // TODO: If time is left, randomly choose a shop to walk or walk straight home.
             let start_free_time = ((1000 * 60) - start_work_time) - work_time;

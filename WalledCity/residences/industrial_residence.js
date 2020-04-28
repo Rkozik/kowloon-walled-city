@@ -1,6 +1,6 @@
 class IndustrialResidence{
     constructor(node, tower) {
-        this.utils = new Utils();
+        this.utils = new DrawUtils();
         this.node = node;
         this.tower = tower;
     }
@@ -19,8 +19,7 @@ class IndustrialResidence{
     }
 
     handleDemand(){
-        let isConnected = this.utils.nodeIsConnected(this.node, this.tower);
-        if(this.node.domElement.classList[1] === "industrial-empty" && this.tower.demand.industrial >= 1 && isConnected){
+        if(this.node.domElement.classList[1] === "industrial-empty" && this.tower.demand.industrial >= 1){
             this.node.domElement.className = "node";
             this.node.domElement.classList.add("industrial-occupied");
             this.node.type = "industrial-occupied";
