@@ -1,10 +1,11 @@
 class Toolbar{
-    constructor(gui, clock) {
+    constructor(gui, clock, bank_account) {
         this.gameboard =  document.getElementById("gameboard");
         this.toolbar = document.createElement('div');
         this.toolbar.id = "toolbar";
         this.gui = gui;
         this.clock = clock;
+        this.bank_account = bank_account;
     }
 
     run(){
@@ -26,10 +27,12 @@ class Toolbar{
         this.createToolBarDivider();
         this.createToolbarIcon("pointer-ico");
         this.createGameClock();
+        this.createWallet();
         this.createToolBarDemand();
         this.gameboard.prepend(this.toolbar);
 
-        this.clock.runGameClock();
+        this.clock.run();
+        this.bank_account.run();
     }
 
     iconClick(event){
@@ -110,11 +113,24 @@ class Toolbar{
         game_clock_container.id = "game-clock-container";
 
         let game_clock = document.createElement('div');
-        game_clock.innerHTML = "00:00";
         game_clock.id = "game-clock";
+        game_clock.innerHTML = "<b>00:00</b>";
+
+        let game_clock_amPm = document.createElement('div');
+        game_clock_amPm.id = "game-clock-am-pm";
+        game_clock_amPm.innerHTML = "<b>AM</b>";
 
         game_clock_container.append(game_clock);
+        game_clock_container.append(game_clock_amPm);
 
         this.toolbar.append(game_clock_container);
+    }
+
+    createWallet(){
+        let wallet = document.createElement('div');
+        wallet.id = "wallet";
+        wallet.innerHTML = "<b>$0</b>";
+
+        this.toolbar.append(wallet)
     }
 }

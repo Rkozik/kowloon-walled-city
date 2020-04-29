@@ -4,18 +4,28 @@ class Clock{
         this.gameHHMM = "";
         this.gameAMPM = "";
         this.mapHH = new Map();
-        this.minute = ((((60 * 1000) * 1) / 24) / 60);
+        this.minute = ((((60 * 1000) * 0.5) / 24) / 60);
+        this.day = 1;
+        this.month = 1;
+        this.quarter = 1;
     }
 
-    runGameClock(){
+    run(){
         let self = this;
         self.createHHMap();
 
         setInterval(function () {
+            // Reset after 1 month
+            if(self.day === 30){
+                self.incrementMonth();
+            }
+
             // Reset after 1 day
             if(self.gametime === 1440){
+                self.day += 1;
                 self.gametime = 0;
             }
+
             self.gametime++;
             self.setGameHHMM();
             self.updateGameClock()
@@ -38,12 +48,15 @@ class Clock{
         }
 
         this.gameAMPM = this.gametime < 720 ? "AM" : "PM";
-        this.gameHHMM = hours + ":" + minutes + " " + this.gameAMPM;
+        this.gameHHMM = hours + ":" + minutes;
     }
 
     updateGameClock(){
         let game_clock = document.getElementById('game-clock');
         game_clock.innerHTML = '<b>' + this.gameHHMM + '</b>';
+
+        let game_clock_amPm = document.getElementById("game-clock-am-pm");
+        game_clock_amPm.innerHTML = '<b>' + this.gameAMPM + "</b>";
     }
 
     createHHMap(){
@@ -72,6 +85,11 @@ class Clock{
         this.mapHH.set(22, '10');
         this.mapHH.set(23, '11');
         this.mapHH.set(24, '12');
+    }
+
+    incrementMonth(){
+       this.month = this.month === 12 ? 1 : this.month += 1;
+       this.quarter = Math.floor(this.month / 4) + 1;
     }
 
 }

@@ -1,7 +1,9 @@
 class Unit{
-    constructor(node, tower) {
+    constructor(node, tower, clock, bank_account) {
         this.node = node;
         this.tower = tower;
+        this.clock = clock;
+        this.bank_account = bank_account;
         this.neighbors = new Neighbor(this.node, this.tower);
         this.utils = new DrawUtils();
     }
@@ -86,6 +88,7 @@ class Unit{
         }
 
         this.isConnected();
+        this.collectRent();
     }
 
     isConnected(){
@@ -95,6 +98,25 @@ class Unit{
                 self.warnRow(self.node);
             }
         }, 5000)
+    }
+
+    collectRent(){
+        let self = this;
+        setInterval(function () {
+            switch(self.node.type){
+                case "residential-occupied":
+                    self.bank_account.deposit(15);
+                    break;
+                case "commercial-occupied":
+                    self.bank_account.deposit(30);
+                    break;
+                case "industrial-occupied":
+                    self.bank_account.deposit(50);
+                    break;
+                default:
+                    break;
+            }
+        }, 30000);
     }
 
     checkLobbyConnection(){

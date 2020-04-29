@@ -1,8 +1,9 @@
 class ResidentialResidence{
-    constructor(node, tower) {
+    constructor(node, tower, bank_account) {
         this.utils = new DrawUtils();
         this.node = node;
         this.tower = tower;
+        this.bank_account = bank_account;
         this.random_utils = new RandomUtils();
     }
 
@@ -31,6 +32,7 @@ class ResidentialResidence{
             this.node.type = "residential-occupied";
             this.tower.demand.decreaseResidentialDemand(1);
             this.tower.demand.increaseCommercialDemand(0.05);
+            this.bank_account.deposit(500);
         }
     }
 

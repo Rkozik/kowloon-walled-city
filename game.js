@@ -2,9 +2,10 @@ class Game {
     constructor(){
         this.width = 1336;
         this.height = 1024;
-        this.demand = new Demand(2, 1, 3);
+        this.demand = new Demand(10, 3, 5);
         this.tower = new Tower(this.demand);
-        this.gui = new GUI(this.tower);
+        this.bank_account = new BankAccount(200000);
+        this.gui = new GUI(this.tower, this.bank_account);
     }
 
     setup(){

@@ -1,10 +1,11 @@
 class GUI{
-    constructor(tower) {
+    constructor(tower, bank_account) {
         this.clock = new Clock();
-        this.toolbar = new Toolbar(this, this.clock);
-        this.pointer = "pointer";
+        this.bank_account = bank_account;
+        this.toolbar = new Toolbar(this, this.clock, this.bank_account);
         this.tower = tower;
         this.gameboard = document.getElementById("gameboard");
+        this.pointer = "pointer";
         this.dragging = false;
         this.nodes_hovered = new Map();
     }
@@ -26,26 +27,29 @@ class GUI{
             case "lobby":
                 let lobby = new Lobby(node, this.tower);
                 lobby.draw();
+                this.bank_account.withdraw(1000);
                 break;
             case "tenant":
-                let tenant = new Unit(node, this.tower);
-                tenant.draw();
+                let unit = new Unit(node, this.tower, this.clock, this.bank_account);
+                unit.draw();
+                this.bank_account.withdraw(5000);
                 break;
             case "residential":
-                let residential_residence = new ResidentialResidence(node, this.tower);
+                let residential_residence = new ResidentialResidence(node, this.tower, this.bank_account);
                 residential_residence.draw();
                 break;
             case "commercial":
-                let commercial_residence = new CommercialResidence(node, this.tower);
+                let commercial_residence = new CommercialResidence(node, this.tower, this.bank_account);
                 commercial_residence.draw();
                 break;
             case "industrial":
-                let industrial_residence = new IndustrialResidence(node, this.tower);
+                let industrial_residence = new IndustrialResidence(node, this.tower, this.bank_account);
                 industrial_residence.draw();
                 break;
             case "stairs":
                 let stairs = new Stairs(node, this.tower);
                 stairs.draw();
+                this.bank_account.withdraw(500);
                 break;
             default:
                 break;
