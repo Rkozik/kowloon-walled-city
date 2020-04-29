@@ -3,6 +3,7 @@ class IndustrialResidence{
         this.utils = new DrawUtils();
         this.node = node;
         this.tower = tower;
+        this.random_utils = new RandomUtils();
     }
 
     draw(){
@@ -21,7 +22,9 @@ class IndustrialResidence{
     handleDemand(){
         if(this.node.domElement.classList[1] === "industrial-empty" && this.tower.demand.industrial >= 1){
             this.node.domElement.className = "node";
-            this.node.domElement.classList.add("industrial-occupied");
+            let residence_lvl1 = ["industrial-occupied", "industrial-occupied-1", "industrial-occupied-2"];
+            let residence = this.random_utils.randomInArray(residence_lvl1);
+            this.node.domElement.classList.add(residence);
             this.node.type = "industrial-occupied";
             this.tower.demand.decreaseIndustrialDemand(1);
             this.tower.demand.increaseResidentialDemand(2);
@@ -34,6 +37,6 @@ class IndustrialResidence{
             if(self.tower.demand.industrial > 0){
                 self.handleDemand();
             }
-        }, 1000 * 20);
+        }, 1000 * 15);
     }
 }
