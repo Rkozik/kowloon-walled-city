@@ -16,6 +16,7 @@ class Unit{
                     this.node.domElement.className = "node";
                     this.node.domElement.classList.add("empty");
                     this.node.type = "empty";
+                    this.bank_account.withdraw(5000);
 
                     if (this.neighbors.easternNeighbor().type === null) {
                         this.neighbors.easternNeighbor().domElement.classList.add('balcony-top-east');
@@ -54,6 +55,7 @@ class Unit{
                 this.node.domElement.classList.add("empty-basement");
                 this.node.type = "empty-basement";
                 this.utils.removeBackgroundImages(this.node);
+                this.bank_account.withdraw(5000);
 
                 if(this.neighbors.southernNeighbor().type === null ||
                     this.neighbors.southernNeighbor().type === "basement"){
@@ -200,7 +202,7 @@ class Unit{
     isOccupied(){
         if(this.node.domElement.classList.length > 1){
             if(this.node.domElement.classList[1].includes("occupied") ||
-                this.node.domElement.classList[1].includes("empty") ){
+                this.node.type === "empty" ){
                 return true;
             }
         }

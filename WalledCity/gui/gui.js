@@ -25,14 +25,12 @@ class GUI{
     drawNode(node){
         switch(this.pointer){
             case "lobby":
-                let lobby = new Lobby(node, this.tower);
+                let lobby = new Lobby(node, this.tower, this.bank_account);
                 lobby.draw();
-                this.bank_account.withdraw(1000);
                 break;
             case "tenant":
                 let unit = new Unit(node, this.tower, this.clock, this.bank_account);
                 unit.draw();
-                this.bank_account.withdraw(5000);
                 break;
             case "residential":
                 let residential_residence = new ResidentialResidence(node, this.tower, this.bank_account);
@@ -47,9 +45,8 @@ class GUI{
                 industrial_residence.draw();
                 break;
             case "stairs":
-                let stairs = new Stairs(node, this.tower);
+                let stairs = new Stairs(node, this.tower, this.bank_account);
                 stairs.draw();
-                this.bank_account.withdraw(500);
                 break;
             default:
                 break;

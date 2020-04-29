@@ -1,7 +1,8 @@
 class Stairs{
-    constructor(node, tower) {
+    constructor(node, tower,bank_account) {
         this.node = node;
         this.tower = tower;
+        this.bank_account = bank_account;
         this.neighbors = new Neighbor(this.node, this.tower);
         this.utils = new DrawUtils();
         this.occupied = false;
@@ -12,6 +13,7 @@ class Stairs{
             this.node.domElement.className = "node";
             this.node.domElement.classList.add("stairs-l");
             this.node.type = "stairs";
+            this.bank_account.withdraw(500);
             this.repaintStairs(this.traverseDown(this.node));
         }
     }
@@ -50,7 +52,8 @@ class Stairs{
             this.neighbors.southernNeighbor() &&
             this.neighbors.easternNeighbor() &&
             this.neighbors.westernNeighbor() &&
-            this.node.domElement.classList.length > 1);
+            this.node.domElement.classList.length > 1 &&
+            this.node.type !== "stairs");
     }
 
     isLobby(){

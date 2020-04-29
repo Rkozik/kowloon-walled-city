@@ -4,7 +4,7 @@ class Game {
         this.height = 1024;
         this.demand = new Demand(10, 3, 5);
         this.tower = new Tower(this.demand);
-        this.bank_account = new BankAccount(200000);
+        this.bank_account = new BankAccount(1000000);
         this.gui = new GUI(this.tower, this.bank_account);
     }
 
