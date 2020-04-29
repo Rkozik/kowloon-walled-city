@@ -27,6 +27,7 @@ class Toolbar{
         this.createToolBarDivider();
         this.createToolbarIcon("pointer-ico");
         this.createGameClock();
+        this.createRentalIncome();
         this.createWallet();
         this.createToolBarDemand();
         this.gameboard.prepend(this.toolbar);
@@ -129,8 +130,16 @@ class Toolbar{
     createWallet(){
         let wallet = document.createElement('div');
         wallet.id = "wallet";
-        wallet.innerHTML = "<b>$0</b>";
+        wallet.innerHTML = "<b>$0.00</b>";
 
         this.toolbar.append(wallet)
+    }
+
+    createRentalIncome(){
+        let rental_income = document.createElement('div');
+        rental_income.id = "rental-income";
+        rental_income.innerHTML = "<b>+$0.00</b>";
+
+        this.toolbar.append(rental_income);
     }
 }

@@ -30,8 +30,8 @@ class CommercialResidence{
             this.node.type = "commercial-occupied";
             this.tower.demand.decreaseCommercialDemand(1);
             this.tower.demand.increaseResidentialDemand(2);
-            this.tower.demand.increaseIndustrialDemand(0.5);
-            this.bank_account.deposit(1000);
+            this.tower.demand.increaseIndustrialDemand(1);
+            this.bank_account.addRenter(this.node);
         }
     }
 
@@ -48,7 +48,7 @@ class CommercialResidence{
         let self = this;
         setInterval(function () {
             if(self.node.type === "commercial-occupied"){
-                self.tower.demand.increaseIndustrialDemand(0.05);
+                self.tower.demand.increaseIndustrialDemand(0.1);
             }
         }, 1000 * 75);
     }

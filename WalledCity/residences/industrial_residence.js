@@ -28,8 +28,8 @@ class IndustrialResidence{
             this.node.domElement.classList.add(residence);
             this.node.type = "industrial-occupied";
             this.tower.demand.decreaseIndustrialDemand(1);
-            this.tower.demand.increaseResidentialDemand(2);
-            this.bank_account.deposit(1500);
+            this.tower.demand.increaseResidentialDemand(1.5);
+            this.bank_account.addRenter(this.node);
         }
     }
 

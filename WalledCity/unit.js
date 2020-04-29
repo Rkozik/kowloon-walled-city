@@ -16,7 +16,7 @@ class Unit{
                     this.node.domElement.className = "node";
                     this.node.domElement.classList.add("empty");
                     this.node.type = "empty";
-                    this.bank_account.withdraw(5000);
+                    this.bank_account.withdraw(3500);
 
                     if (this.neighbors.easternNeighbor().type === null) {
                         this.neighbors.easternNeighbor().domElement.classList.add('balcony-top-east');
@@ -55,7 +55,7 @@ class Unit{
                 this.node.domElement.classList.add("empty-basement");
                 this.node.type = "empty-basement";
                 this.utils.removeBackgroundImages(this.node);
-                this.bank_account.withdraw(5000);
+                this.bank_account.withdraw(2500);
 
                 if(this.neighbors.southernNeighbor().type === null ||
                     this.neighbors.southernNeighbor().type === "basement"){
@@ -107,13 +107,13 @@ class Unit{
         setInterval(function () {
             switch(self.node.type){
                 case "residential-occupied":
-                    self.bank_account.deposit(15);
+                    self.bank_account.payRent("residential");
                     break;
                 case "commercial-occupied":
-                    self.bank_account.deposit(30);
+                    self.bank_account.payRent("commercial");
                     break;
                 case "industrial-occupied":
-                    self.bank_account.deposit(50);
+                    self.bank_account.payRent("industrial");
                     break;
                 default:
                     break;

@@ -31,8 +31,8 @@ class ResidentialResidence{
 
             this.node.type = "residential-occupied";
             this.tower.demand.decreaseResidentialDemand(1);
-            this.tower.demand.increaseCommercialDemand(0.05);
-            this.bank_account.deposit(500);
+            this.tower.demand.increaseCommercialDemand(0.075);
+            this.bank_account.addRenter(this.node);
         }
     }
 
