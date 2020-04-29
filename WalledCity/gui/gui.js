@@ -1,6 +1,7 @@
 class GUI{
     constructor(tower) {
-        this.toolbar = new Toolbar(this);
+        this.clock = new Clock();
+        this.toolbar = new Toolbar(this, this.clock);
         this.pointer = "pointer";
         this.tower = tower;
         this.gameboard = document.getElementById("gameboard");
@@ -88,7 +89,7 @@ class GUI{
                 cursor_styles.innerText = "body{cursor:url('img/gui/stairs-ico.png'), pointer;}";
                 break;
             default:
-                cursor_styles.innerText = "body{cursor: pointer;}";
+                cursor_styles.innerText = "body{cursor:url('img/gui/pointer-ico.png'), pointer;}";
                 break
         }
 

@@ -1,9 +1,10 @@
 class Toolbar{
-    constructor(gui) {
+    constructor(gui, clock) {
         this.gameboard =  document.getElementById("gameboard");
         this.toolbar = document.createElement('div');
         this.toolbar.id = "toolbar";
         this.gui = gui;
+        this.clock = clock;
     }
 
     run(){
@@ -15,13 +16,20 @@ class Toolbar{
     }
 
     draw(){
-        this.createToolbarIcon("residential-ico");
-        this.createToolbarIcon("commercial-ico");
-        this.createToolbarIcon("industrial-ico");
         this.createToolbarIcon("lobby-ico");
         this.createToolbarIcon("tenant-ico");
         this.createToolbarIcon("stairs-ico");
+        this.createToolBarDivider();
+        this.createToolbarIcon("residential-ico");
+        this.createToolbarIcon("commercial-ico");
+        this.createToolbarIcon("industrial-ico");
+        this.createToolBarDivider();
+        this.createToolbarIcon("pointer-ico");
+        this.createGameClock();
+        this.createToolBarDemand();
         this.gameboard.prepend(this.toolbar);
+
+        this.clock.runGameClock();
     }
 
     iconClick(event){
@@ -56,5 +64,57 @@ class Toolbar{
         icon.id = id_name;
 
         this.toolbar.append(icon);
+    }
+
+    createToolBarDivider(){
+        let divider = document.createElement('div');
+        divider.classList = "toolbar-divider";
+
+        this.toolbar.append(divider);
+    }
+
+    createToolBarDemand(){
+        let demand_container = document.createElement('div');
+
+        demand_container.id = "demand-container";
+
+        let residential_demand = document.createElement('div');
+        let commercial_demand = document.createElement('div');
+        let industrial_demand = document.createElement('div');
+
+        residential_demand.className = "demand-bar";
+        commercial_demand.className = "demand-bar";
+        industrial_demand.className = "demand-bar";
+
+        let residential_demand_indicator = document.createElement('div');
+        let commercial_demand_indicator = document.createElement('div');
+        let industrial_demand_indicator = document.createElement('div');
+
+        residential_demand_indicator.id = "residential-demand";
+        commercial_demand_indicator.id = "commercial-demand";
+        industrial_demand_indicator.id = "industrial-demand";
+
+        residential_demand.append(residential_demand_indicator);
+        commercial_demand.append(commercial_demand_indicator);
+        industrial_demand.append(industrial_demand_indicator);
+
+        demand_container.append(residential_demand);
+        demand_container.append(commercial_demand);
+        demand_container.append(industrial_demand);
+
+        this.toolbar.append(demand_container);
+    }
+
+    createGameClock(){
+        let game_clock_container = document.createElement('div');
+        game_clock_container.id = "game-clock-container";
+
+        let game_clock = document.createElement('div');
+        game_clock.innerHTML = "00:00";
+        game_clock.id = "game-clock";
+
+        game_clock_container.append(game_clock);
+
+        this.toolbar.append(game_clock_container);
     }
 }

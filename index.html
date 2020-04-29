@@ -18,6 +18,7 @@
     <script type="application/javascript" src="WalledCity/lobby.js"></script>
     <script type="application/javascript" src="WalledCity/demand.js"></script>
     <script type="application/javascript" src="WalledCity/route.js"></script>
+    <script type="application/javascript" src="WalledCity/clock.js"></script>
     <!--  Residences  -->
     <script type="application/javascript" src="WalledCity/residences/residential_residence.js"></script>
     <script type="application/javascript" src="WalledCity/residences/commercial_residence.js"></script>
@@ -29,6 +30,26 @@
     <script type="application/javascript" src="game.js"></script>
 </head>
 <style>
+    @font-face {
+        font-family: 'pxlxxlBold';
+        src: url("./fonts/pxlxxlBold.eot"); /* IE9 Compat Modes */
+        src: url("./fonts/pxlxxlBold.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+        url("./fonts/pxlxxlBold.otf") format("opentype"), /* Open Type Font */
+        url("./fonts/pxlxxlBold.svg") format("svg"), /* Legacy iOS */
+        url("./fonts/pxlxxlBold.ttf") format("truetype"), /* Safari, Android, iOS */
+        url("./fonts/pxlxxlBold.woff") format("woff"), /* Modern Browsers */
+        url("./fonts/pxlxxlBold.woff2") format("woff2"); /* Modern Browsers */
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    b{
+        font-family: pxlxxlBold;
+    }
+
+    body{
+        cursor:url('img/gui/pointer-ico.png'), pointer;
+    }
     #gameboard-outer-border{
         border: 1px solid #d8d6d6;
         width: 1046px;
@@ -206,14 +227,39 @@
         background-color:#71b58d;
         background-image: url("img/residences/residential-occupied.png");
     }
+        .residential-occupied-1{
+            background-color:#71b58d;
+            background-image: url("img/residences/residential-occupied-1.png");
+        }
+        .residential-occupied-2{
+            background-color:#71b58d;
+            background-image: url("img/residences/residential-occupied-2.png");
+        }
+        .residential-occupied-3{
+            background-color:#71b58d;
+            background-image: url("img/residences/residential-occupied-3.png");
+        }
+
     .commercial-occupied{
         background-color:#578ab7;
         background-image: url("img/residences/commercial-occupied.png");
     }
+        .commercial-occupied-1{
+            background-color:#578ab7;
+            background-image: url("img/residences/commercial-occupied-1.png");
+        }
     .industrial-occupied{
         background-color:#e2b646;
         background-image: url("img/residences/industrial-occupied.png");
     }
+        .industrial-occupied-1{
+            background-color:#e2b646;
+            background-image: url("img/residences/industrial-occupied-1.png");
+        }
+        .industrial-occupied-2{
+            background-color:#e2b646;
+            background-image: url("img/residences/industrial-occupied-2.png");
+        }
 
     /** Toolbar **/
     #toolbar {
@@ -235,6 +281,13 @@
         .toolbar-ico:hover{
             cursor:pointer;
         }
+    .toolbar-divider{
+        background-color: #848586;
+        height: 28px;
+        width: 2px;
+        margin: 0 0 0 14px;
+        display: inline-block;
+    }
     #residential-ico {
         background-image: url("img/gui/residential-ico.png");
     }
@@ -253,9 +306,62 @@
     #stairs-ico {
         background-image: url("img/gui/stairs-ico.png");
     }
+    #pointer-ico {
+        background-image: url("img/gui/pointer-ico.png");
+        width:22px;
+        top: 1px;
+        position: relative;
+    }
 
     .no-lobby{
         background-color: red;
+    }
+
+    /** Demand **/
+    #demand-container{
+        width: 60px;
+        height: 14px;
+        display: inline-block;
+        margin-right: 10px;
+        margin-top: 6px;
+        float: right;
+    }
+
+    .demand-bar{
+        background-color: #848486;
+        width: 60px;
+        height: 4px;
+    }
+
+    #residential-demand{
+        background-color:#71b58d;
+        height: 4px;
+        width: 0;
+    }
+
+    #commercial-demand{
+        background-color: #578ab7;
+        height: 4px;
+        margin-top:4px;
+        width: 0;
+    }
+
+    #industrial-demand{
+        background-color: #e2b646;
+        height: 4px;
+        margin-top:4px;
+        width: 0;
+    }
+
+    /** Game Clock **/
+    #game-clock-container{
+        display: inline-block;
+        float: right;
+        color: #e7e7e7;
+        font-size: 25px;
+        margin-right: 10px;
+        margin-top: 2px;
+        width: 90px;
     }
 
 </style>
