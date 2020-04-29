@@ -3,6 +3,33 @@ class Demand{
         this.residential = residential;
         this.commercial = commercial;
         this.industrial = industrial;
+        this.residential_limit = 20;
+        this.commercial_limit = 10;
+        this.industrial_limit = 15
+    }
+
+    draw(){
+        let residential_percentage = this.roundUpToNext5((this.residential / this.residential_limit) * 10);
+        let commercial_percentage = this.roundUpToNext5((this.commercial / this.commercial_limit) * 10);
+        let industrial_percentage = this.roundUpToNext5((this.industrial / this.industrial_limit) * 10);
+
+        let residential_demand = document.getElementById('residential-demand');
+        let commercial_demand = document.getElementById('commercial-demand');
+        let industrial_demand = document.getElementById('industrial-demand');
+
+        residential_demand.setAttribute('style','width:' + residential_percentage + "px;");
+        commercial_demand.setAttribute('style','width:' + commercial_percentage + "px;");
+        industrial_demand.setAttribute('style','width:' + industrial_percentage + "px;");
+    }
+
+    roundUpToNext5(number){
+        let output;
+        if (number < 5 && number > 0){
+            output = 5;
+        } else {
+            output = ( number/ 5) * 5;
+        }
+        return output;
     }
 
     increaseResidentialDemand(increase){
@@ -32,9 +59,7 @@ class Demand{
     outputDemand(){
         let self = this;
         setInterval(function () {
-            console.log("Residential Demand: ", self.residential);
-            console.log("Commercial Demand: ", self.commercial);
-            console.log("Industrial Demand: ", self.industrial);
+            self.draw();
         }, 3000);
     }
 }
