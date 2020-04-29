@@ -7,3 +7,6 @@ refugees, and the like there was demand for cheap, low cost living. So without a
 building on top of building to fullfill the demand. There was no running power, sewage, water, or waste pick up.
 
 ![Early Kowloon Walled City screenshot](https://i.imgur.com/ijDBMRV.png)
+
+
+![application architecture](https://i.imgur.com/G9Uw5Ro.png)
