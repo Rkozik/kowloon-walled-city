@@ -9,9 +9,9 @@ class Demand{
     }
 
     draw(){
-        let residential_percentage = this.roundUpToNext5((this.residential / this.residential_limit) * 10);
-        let commercial_percentage = this.roundUpToNext5((this.commercial / this.commercial_limit) * 10);
-        let industrial_percentage = this.roundUpToNext5((this.industrial / this.industrial_limit) * 10);
+        let residential_percentage = this.roundUpToNext5((this.residential / this.residential_limit) * 100);
+        let commercial_percentage = this.roundUpToNext5((this.commercial / this.commercial_limit) * 100);
+        let industrial_percentage = this.roundUpToNext5((this.industrial / this.industrial_limit) * 100);
 
         let residential_demand = document.getElementById('residential-demand');
         let commercial_demand = document.getElementById('commercial-demand');
@@ -23,13 +23,12 @@ class Demand{
     }
 
     roundUpToNext5(number){
-        let output;
         if (number < 5 && number > 0){
-            output = 5;
+            number = 5;
         } else {
-            output = ( number/ 5) * 5;
+            number = (number/ 5) * 5;
         }
-        return output;
+        return number;
     }
 
     increaseResidentialDemand(increase){
