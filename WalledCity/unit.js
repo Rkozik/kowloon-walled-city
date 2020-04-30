@@ -241,7 +241,8 @@ class Unit{
     isOccupied(){
         if(this.node.domElement.classList.length > 1){
             if(this.node.domElement.classList[1].includes("occupied") ||
-                this.node.type === "empty" ){
+                this.node.type === "empty" ||
+                this.node.type === "stairs"){
                 return true;
             }
         }
