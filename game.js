@@ -1,6 +1,6 @@
 class Game {
     constructor(){
-        this.width = 1336;
+        this.width = 2672 - 200;
         this.height = 1024;
         this.demand = new Demand(3, 1, 15);
         this.tower = new Tower(this.demand);
@@ -53,30 +53,30 @@ class Game {
         let ground_floor = document.getElementById("floor_6");
         let positions = [];
         let props = [];
-        for(let j=0;j<20;j++){
+        for(let j=0;j<30;j++){
 
             let prop = random_utils.notPreviousRoll(1, 6, props);
             let new_decoration = document.createElement('div');
             let position = 0;
 
             if(prop === 1){
-                position = utils.notWithin30Pixels(1, 662, positions);
+                position = utils.notWithin30Pixels(1, Math.floor(this.width / 2) - 12, positions);
                 new_decoration.className = "birb";
             }
             if(prop === 2){
-                position = utils.notWithin30Pixels(1, 648, positions);
+                position = utils.notWithin30Pixels(1, Math.floor(this.width / 2) - 40, positions);
                 new_decoration.className = "tree-solid";
             }
             if(prop === 3){
-                position = utils.notWithin30Pixels(1, 650, positions);
+                position = utils.notWithin30Pixels(1, Math.floor(this.width / 2) - 36, positions);
                 new_decoration.className = "bench";
             }
             if(prop === 4){
-                position = utils.notWithin30Pixels(1, 648, positions);
+                position = utils.notWithin30Pixels(1, Math.floor(this.width / 2) - 40, positions);
                 new_decoration.className = "tree-hollow";
             }
             if(prop === 5){
-                position = utils.notWithin30Pixels(1, 644, positions);
+                position = utils.notWithin30Pixels(1, Math.floor(this.width / 2) - 48, positions);
                 new_decoration.className = "fence-small";
             }
 
@@ -85,8 +85,13 @@ class Game {
             new_decoration.setAttribute("style","left: "+position+"px;");
             ground_floor.append(new_decoration);
         }
+
         let bus = document.createElement('div');
         bus.className = "bus";
+
+        let bus_top = gameboard.scrollHeight;
+        let bus_right = gameboard.scrollWidth;
+        bus.setAttribute('style','top: ' + ((bus_top - (50 * 6)) - 8) + "px; left: " + (bus_right - 68 - 12) + "px;");
         ground_floor.append(bus);
 
         gameboard.scrollTop = gameboard.scrollHeight;

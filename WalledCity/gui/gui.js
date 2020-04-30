@@ -20,6 +20,8 @@ class GUI{
 
         this.gameboard.addEventListener('mousedown', this.handleMouseDownGameboard.bind(this), false);
         this.gameboard.addEventListener('mouseup', this.handleMouseUpGameboard.bind(this), false);
+
+        this.setGameHeight();
     }
 
     drawNode(node){
@@ -111,5 +113,10 @@ class GUI{
         let position = parseInt(event.target.id.split('_')[2]);
         let floor = parseInt(event.target.id.split('_')[1]);
         return this.tower.getFloor(floor).getNode(position);
+    }
+
+    setGameHeight(){
+        let gameboard = document.getElementById("gameboard");
+        gameboard.setAttribute('style','height: ' + window.innerHeight + "px");
     }
 }
