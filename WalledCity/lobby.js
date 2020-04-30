@@ -17,6 +17,7 @@ class Lobby{
 
             this.handleEasternNeighbor();
             this.handleWesternNeighbor();
+            this.handleSouthernNeighbor();
         }
     }
 
@@ -35,6 +36,12 @@ class Lobby{
             this.neighbors.westernNeighbor().type = "entrance";
             this.utils.addBackgroundImage(this.neighbors.southWesternNeighbor(), "img/rooms/entrance-basement-west.png");
             this.neighbors.southWesternNeighbor().type = "entrance";
+        }
+    }
+
+    handleSouthernNeighbor(){
+        if(this.neighbors.southernNeighbor().type === "entrance"){
+            this.neighbors.southernNeighbor().type = "basement";
         }
     }
 
