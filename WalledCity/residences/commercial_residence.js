@@ -32,6 +32,15 @@ class CommercialResidence{
             this.tower.demand.increaseResidentialDemand(2);
             this.tower.demand.increaseIndustrialDemand(1);
             this.bank_account.addRenter(this.node);
+
+            // Add jobs to jobs list
+            let new_job_1 = new Job(this.tower);
+            new_job_1.setLocation(this.node);
+            this.tower.addJob(new_job_1);
+
+            let new_job_2 = new Job(this.tower);
+            new_job_2.setLocation(this.node);
+            this.tower.addJob(new_job_2);
         }
     }
 

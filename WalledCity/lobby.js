@@ -50,6 +50,5 @@ class Lobby{
             this.neighbors.westernNeighbor() &&
             this.node.floor_id === 6 &&
             this.node.type !== "lobby");
-
     }
 }

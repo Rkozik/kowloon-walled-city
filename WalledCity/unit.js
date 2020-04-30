@@ -134,11 +134,11 @@ class Unit{
 
     isConnected(){
         let self = this;
-        setInterval(function () {
-            if(!self.checkLobbyConnection()){
-                self.warnRow(self.node);
-            }
-        }, 5000)
+        // setInterval(function () {
+        //     if(!self.checkLobbyConnection()){
+        //         self.warnRow(self.node);
+        //     }
+        // }, 5000)
     }
 
     collectRent(){

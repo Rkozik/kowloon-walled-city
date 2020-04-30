@@ -17,6 +17,10 @@ class Route{
             ){
                 path.push(node);
                 visited.push(node);
+                node.domElement.setAttribute('style','background-color:red;');
+                setTimeout(function () {
+                    node.domElement.setAttribute('style','');
+                }, 100);
 
                 if(node.type === "stairs"){
                     if(target.floor_id > node.floor_id){

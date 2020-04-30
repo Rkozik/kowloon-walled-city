@@ -9,9 +9,16 @@ class Tenant{
         this.random_utils = new RandomUtils();
     }
 
-    draw(){
+    assignJob(){
+        // Find nearest vacancy
+    }
 
-        this.dailyRoutine();
+    draw(){
+        //this.dailyRoutine();
+    }
+
+    isUnemployed(){
+        return this.job === null;
     }
 
     setJob(node){
