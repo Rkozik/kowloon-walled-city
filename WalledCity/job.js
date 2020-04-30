@@ -11,7 +11,7 @@ class Job{
     }
 
     setWorker(worker){
-        this.worker = worker;
+        this.worker = this.worker === null ? worker : this.worker;
     }
 
     setLocation(location){
