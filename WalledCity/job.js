@@ -14,6 +14,10 @@ class Job{
         this.worker = this.worker === null ? worker : this.worker;
     }
 
+    removeWorker(){
+        this.worker = null;
+    }
+
     setLocation(location){
         this.location = location;
     }
