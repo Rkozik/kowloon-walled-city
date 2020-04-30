@@ -12,39 +12,16 @@ class Unit{
         if(this.canConstructAboveGround()) {
             if (this.neighbors.southernNeighbor().type !== null) {
                 if (this.neighbors.southernNeighbor().type !== "entrance" &&
-                    this.neighbors.southernNeighbor().type !== "balcony") {
+                    this.neighbors.southernNeighbor().type !== "balcony" &&
+                    this.neighbors.southernNeighbor().type !== "clothes-line") {
                     this.node.domElement.className = "node";
                     this.node.domElement.classList.add("empty");
                     this.node.type = "empty";
                     this.bank_account.withdraw(3500);
 
-                    if (this.neighbors.easternNeighbor().type === null) {
-                        this.neighbors.easternNeighbor().domElement.classList.add('balcony-top-east');
-                        this.neighbors.easternNeighbor().type = "balcony";
-
-                        if (this.neighbors.southEasternNeighbor().domElement.classList[1] === 'balcony-top-east') {
-                            this.neighbors.southEasternNeighbor().domElement.classList.remove('balcony-top-east');
-                            this.neighbors.southEasternNeighbor().domElement.classList.add('balcony-east');
-                        }
-                    } else if (this.neighbors.easternNeighbor().domElement.classList[1].includes("balcony")) {
-                        this.neighbors.easternNeighbor().domElement.className = "node";
-                        this.neighbors.easternNeighbor().domElement.classList.add("clothes-line-n2n");
-                        this.neighbors.easternNeighbor().type = "clothes-line";
-                    }
-
-                    if (this.neighbors.westernNeighbor().domElement.classList.length === 1) {
-                        this.neighbors.westernNeighbor().domElement.classList.add('balcony-top-west');
-                        this.neighbors.westernNeighbor().type = "balcony";
-
-                        if (this.neighbors.southWesternNeighbor().domElement.classList[1] === 'balcony-top-west') {
-                            this.neighbors.southWesternNeighbor().domElement.classList.remove('balcony-top-west');
-                            this.neighbors.southWesternNeighbor().domElement.classList.add('balcony-west');
-                        }
-                    } else if (this.neighbors.westernNeighbor().domElement.classList[1].includes("balcony")) {
-                        this.neighbors.westernNeighbor().domElement.className = "node";
-                        this.neighbors.westernNeighbor().domElement.classList.add("clothes-line-n2n");
-                        this.neighbors.westernNeighbor().type = "clothes-line";
-                    }
+                    this.handleEasternNeighborAboveGround();
+                    this.handleWesternNeighborAboveGround();
+                    this.handleSouthWesternNeighborAboveGround();
                 }
             }
         }
@@ -57,40 +34,102 @@ class Unit{
                 this.utils.removeBackgroundImages(this.node);
                 this.bank_account.withdraw(2500);
 
-                if(this.neighbors.southernNeighbor().type === null ||
-                    this.neighbors.southernNeighbor().type === "basement"){
-                    this.utils.addBackgroundImage(this.neighbors.southernNeighbor(), "img/rooms/basement-bg.png");
-                }
-
-                if(this.neighbors.easternNeighbor().type === "basement" ||
-                    this.neighbors.easternNeighbor().type === "entrance" ||
-                    this.neighbors.easternNeighbor().type === null){
-                    this.utils.addBackgroundImage(this.neighbors.easternNeighbor(), "img/rooms/basement-wall-east.png");
-                    this.utils.addBackgroundImage(this.neighbors.southEasternNeighbor(), "img/rooms/basement-wall-southeast.png");
-                    this.neighbors.easternNeighbor().type = "basement";
-                    this.neighbors.southEasternNeighbor().type = "basement";
-
-                } else if(this.neighbors.easternNeighbor().domElement.classList[1].includes('wall')){
-                    this.utils.addBackgroundImage(this.neighbors.easternNeighbor(), "img/rooms/basement-wall-n2n.png");
-                    this.neighbors.easternNeighbor().type = "basement";
-                }
-
-                if(this.neighbors.westernNeighbor().type === "basement" ||
-                    this.neighbors.westernNeighbor().type === "entrance" ||
-                    this.neighbors.westernNeighbor().type === null){
-                    this.utils.addBackgroundImage(this.neighbors.westernNeighbor(), "img/rooms/basement-wall-west.png");
-                    this.utils.addBackgroundImage(this.neighbors.southWesternNeighbor(), "img/rooms/basement-wall-southwest.png");
-                    this.neighbors.westernNeighbor().type = "basement";
-                    this.neighbors.southWesternNeighbor().type = "basement";
-
-                } else if(this.neighbors.westernNeighbor().domElement.classList[1].includes('wall')){
-                    this.utils.addBackgroundImage(this.neighbors.westernNeighbor(), "img/rooms/basement-wall-n2n.png");
-                }
+                this.handleEasternNeighborBelowGround();
+                this.handleSouthernNeighborBelowGround();
+                this.handleWesternNeighborBelowGround();
+                this.handleSouthWesternNeighborBelowGround();
+                this.handleSouthEasternNeighborBelowGround();
             }
         }
 
         this.isConnected();
         this.collectRent();
+    }
+
+    handleSouthernNeighborBelowGround(){
+        if(this.neighbors.southernNeighbor().type === null ||
+            this.neighbors.southernNeighbor().type === "basement"){
+            this.utils.addBackgroundImage(this.neighbors.southernNeighbor(), "img/rooms/basement-bg.png");
+        }
+    }
+
+    handleEasternNeighborAboveGround(){
+        if (this.neighbors.easternNeighbor().type === null) {
+            this.neighbors.easternNeighbor().domElement.classList.add('balcony-top-east');
+            this.neighbors.easternNeighbor().type = "balcony";
+
+            if (this.neighbors.southEasternNeighbor().domElement.classList[1] === 'balcony-top-east') {
+                this.neighbors.southEasternNeighbor().domElement.classList.remove('balcony-top-east');
+                this.neighbors.southEasternNeighbor().domElement.classList.add('balcony-east');
+            }
+        } else if (this.neighbors.easternNeighbor().type === "balcony") {
+            this.neighbors.easternNeighbor().domElement.className = "node";
+            this.neighbors.easternNeighbor().domElement.classList.add("clothes-line-n2n");
+            this.neighbors.easternNeighbor().type = "clothes-line";
+        }
+    }
+
+    handleEasternNeighborBelowGround(){
+        if(this.neighbors.easternNeighbor().type === "basement" ||
+            this.neighbors.easternNeighbor().type === "entrance" ||
+            this.neighbors.easternNeighbor().type === null){
+            this.utils.addBackgroundImage(this.neighbors.easternNeighbor(), "img/rooms/basement-wall-east.png");
+            this.neighbors.easternNeighbor().type = "basement";
+
+        } else if(this.neighbors.easternNeighbor().domElement.classList[1].includes('wall')){
+            this.utils.addBackgroundImage(this.neighbors.easternNeighbor(), "img/rooms/basement-wall-n2n.png");
+            this.neighbors.easternNeighbor().type = "basement";
+        }
+    }
+
+    handleWesternNeighborAboveGround(){
+        if (this.neighbors.westernNeighbor().type === null) {
+            this.neighbors.westernNeighbor().domElement.classList.add('balcony-top-west');
+            this.neighbors.westernNeighbor().type = "balcony";
+        } else if (this.neighbors.westernNeighbor().type === "balcony") {
+            this.neighbors.westernNeighbor().domElement.className = "node";
+            this.neighbors.westernNeighbor().domElement.classList.add("clothes-line-n2n");
+            this.neighbors.westernNeighbor().type = "clothes-line";
+        }
+    }
+
+    handleWesternNeighborBelowGround(){
+        if(this.neighbors.westernNeighbor().type === "basement" ||
+            this.neighbors.westernNeighbor().type === "entrance" ||
+            this.neighbors.westernNeighbor().type === null){
+            this.utils.addBackgroundImage(this.neighbors.westernNeighbor(), "img/rooms/basement-wall-west.png");
+            this.utils.addBackgroundImage(this.neighbors.southWesternNeighbor(), "img/rooms/basement-wall-southwest.png");
+            this.neighbors.westernNeighbor().type = "basement";
+            this.neighbors.southWesternNeighbor().type = "basement";
+
+        } else if(this.neighbors.westernNeighbor().domElement.classList[1].includes('wall')){
+            this.utils.addBackgroundImage(this.neighbors.westernNeighbor(), "img/rooms/basement-wall-n2n.png");
+        }
+    }
+
+    handleSouthEasternNeighborBelowGround(){
+        if(this.neighbors.easternNeighbor().type === "basement" ||
+            this.neighbors.easternNeighbor().type === "entrance" ||
+            this.neighbors.easternNeighbor().type === null){
+            this.utils.addBackgroundImage(this.neighbors.southEasternNeighbor(), "img/rooms/basement-wall-southeast.png");
+            this.neighbors.southEasternNeighbor().type = "basement";
+        }
+    }
+
+    handleSouthWesternNeighborAboveGround(){
+        if (this.neighbors.southWesternNeighbor().domElement.classList[1] === 'balcony-top-west') {
+            this.neighbors.southWesternNeighbor().domElement.classList.remove('balcony-top-west');
+            this.neighbors.southWesternNeighbor().domElement.classList.add('balcony-west');
+        }
+    }
+
+    handleSouthWesternNeighborBelowGround(){
+        if(this.neighbors.westernNeighbor().type === "basement" ||
+            this.neighbors.westernNeighbor().type === "entrance" ||
+            this.neighbors.westernNeighbor().type === null){
+            this.utils.addBackgroundImage(this.neighbors.southWesternNeighbor(), "img/rooms/basement-wall-southwest.png");
+            this.neighbors.southWesternNeighbor().type = "basement";
+        }
     }
 
     isConnected(){
