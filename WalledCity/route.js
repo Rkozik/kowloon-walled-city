@@ -3,6 +3,23 @@ class Route{
         this.tower = tower;
     }
 
+    traverseEachBuilding(node, target){
+        let lobbies = this.tower.lobbies;
+        for(let i=0;i<lobbies.length;i++){
+            let traversal = this.traverse(node, target);
+            if(traversal.length === 0){
+                let path_to_next_lobby = this.traverse(node, lobbies[i]);
+                let traverse_next_building = this.traverse(lobbies[i], target);
+                if(traverse_next_building.length > 0){
+                    return path_to_next_lobby.concat(traverse_next_building);
+                }
+            } else {
+                return traversal;
+            }
+        }
+        return [];
+    }
+
     traverse(node, target, path= [], visited = []){
 
         let neighbors = new Neighbor(node, this.tower);
@@ -17,6 +34,7 @@ class Route{
             ){
                 path.push(node);
                 visited.push(node);
+
                 node.domElement.setAttribute('style','background-color:red;');
                 setTimeout(function () {
                     node.domElement.setAttribute('style','');
@@ -43,6 +61,11 @@ class Route{
                 path.push(node);
                 visited.push(node);
 
+            node.domElement.setAttribute('style','background-color:blue;');
+            setTimeout(function () {
+                node.domElement.setAttribute('style','');
+            }, 100);
+
                 if(node.type === "stairs"){
                     if(target.floor_id > node.floor_id){
                         if(neighbors.northernNeighbor().type === "stairs"){
@@ -56,6 +79,7 @@ class Route{
                 }
                 return this.traverse(neighbors.westernNeighbor(), target, path, visited);
         }
+
         return this.traverse(false, target, path, visited);
     }
 }

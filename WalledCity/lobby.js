@@ -18,6 +18,7 @@ class Lobby{
             this.handleEasternNeighbor();
             this.handleWesternNeighbor();
             this.handleSouthernNeighbor();
+            this.handleLobbyNode();
         }
     }
 
@@ -43,6 +44,16 @@ class Lobby{
         if(this.neighbors.southernNeighbor().type === "entrance"){
             this.neighbors.southernNeighbor().type = "basement";
         }
+    }
+
+    handleLobbyNode(){
+        if(this.tower.getLobby(this.neighbors.easternNeighbor()) !== false){
+            this.tower.removeLobby(this.neighbors.easternNeighbor());
+        }
+        if(this.tower.getLobby(this.neighbors.westernNeighbor()) !== false){
+            this.tower.removeLobby(this.neighbors.westernNeighbor());
+        }
+        this.tower.addLobby(this.node);
     }
 
     canConstruct(){

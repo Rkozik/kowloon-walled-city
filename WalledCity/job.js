@@ -28,7 +28,7 @@ class Job{
         let job_distances = new Map();
         if(job_list.length > 0){
             for(let i=0;i<job_list.length;i++){
-                let job_distance = route.traverse(worker, job_list[i].location);
+                let job_distance = route.traverseEachBuilding(worker, job_list[i].location);
                 job_distances.set(job_list[i], job_distance.length);
             }
             let reversed = new Map();

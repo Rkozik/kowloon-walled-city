@@ -3,6 +3,7 @@ class Tower{
         this.floors = [];
         this.demand = demand;
         this.jobs = [];
+        this.lobbies = [];
     }
 
     addFloor(floor){
@@ -38,5 +39,21 @@ class Tower{
 
     getTotalJobs(){
         return this.jobs.length;
+    }
+
+    addLobby(lobby){
+        this.lobbies.push(lobby);
+    }
+
+    removeLobby(lobby){
+        let index = this.lobbies.indexOf(lobby);
+        if(index > -1){
+            this.lobbies.splice(index, 1);
+        }
+    }
+
+    getLobby(node){
+        let index = this.lobbies.indexOf(node);
+        return index !== -1 ? this.lobbies[index] : false;
     }
 }

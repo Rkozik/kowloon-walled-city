@@ -11,6 +11,7 @@ class Tenant{
 
     assignJob(){
         // Find nearest vacancy
+        // TODO: Move logic from residential_residence.js to here.
     }
 
     draw(){

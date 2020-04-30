@@ -3,9 +3,9 @@ class Demand{
         this.residential = residential;
         this.commercial = commercial;
         this.industrial = industrial;
-        this.residential_limit = 20;
-        this.commercial_limit = 10;
-        this.industrial_limit = 15
+        this.residential_limit = 10;
+        this.commercial_limit = 7;
+        this.industrial_limit = 9;
     }
 
     draw(){
@@ -32,7 +32,9 @@ class Demand{
     }
 
     increaseResidentialDemand(increase){
-        this.residential = this.residential + increase <= this.residential_limit ? this.residential++ : this.residential;
+        if(this.residential + increase < this.residential_limit){
+            this.residential += increase;
+        }
     }
 
     decreaseResidentialDemand(decrease){
@@ -40,7 +42,9 @@ class Demand{
     }
 
     increaseCommercialDemand(increase){
-        this.commercial = this.commercial + increase <= this.commercial_limit ? this.commercial++ : this.commercial;
+        if(this.commercial + increase < this.commercial_limit){
+            this.commercial += increase;
+        }
     }
 
     decreaseCommercialDemand(decrease){
@@ -48,7 +52,9 @@ class Demand{
     }
 
     increaseIndustrialDemand(increase){
-        this.industrial = this.industrial + increase <= this.industrial_limit ? this.industrial++ : this.industrial;
+        if(this.industrial + increase < this.industrial_limit){
+            this.industrial += increase;
+        }
     }
 
     decreaseIndustrialDemand(decrease){
