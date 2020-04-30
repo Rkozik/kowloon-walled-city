@@ -15,19 +15,26 @@ class Lobby{
             this.utils.addBackgroundImage(this.neighbors.southernNeighbor(), "img/rooms/basement-bg.png");
             this.bank_account.withdraw(1000);
 
-            if(this.neighbors.easternNeighbor().domElement.classList.length === 1){
-                this.neighbors.easternNeighbor().domElement.classList.add('entrance-east');
-                this.neighbors.easternNeighbor().type = "entrance";
-                this.utils.addBackgroundImage(this.neighbors.southEasternNeighbor(), "img/rooms/entrance-basement-east.png");
-                this.neighbors.southEasternNeighbor().type = "entrance";
-            }
+            this.handleEasternNeighbor();
+            this.handleWesternNeighbor();
+        }
+    }
 
-            if(this.neighbors.westernNeighbor().domElement.classList.length === 1){
-                this.neighbors.westernNeighbor().domElement.classList.add('entrance-west');
-                this.neighbors.westernNeighbor().type = "entrance";
-                this.utils.addBackgroundImage(this.neighbors.southWesternNeighbor(), "img/rooms/entrance-basement-west.png");
-                this.neighbors.southWesternNeighbor().type = "entrance";
-            }
+    handleEasternNeighbor(){
+        if(this.neighbors.easternNeighbor().type === null){
+            this.neighbors.easternNeighbor().domElement.classList.add('entrance-east');
+            this.neighbors.easternNeighbor().type = "entrance";
+            this.utils.addBackgroundImage(this.neighbors.southEasternNeighbor(), "img/rooms/entrance-basement-east.png");
+            this.neighbors.southEasternNeighbor().type = "entrance";
+        }
+    }
+
+    handleWesternNeighbor(){
+        if(this.neighbors.westernNeighbor().type === null){
+            this.neighbors.westernNeighbor().domElement.classList.add('entrance-west');
+            this.neighbors.westernNeighbor().type = "entrance";
+            this.utils.addBackgroundImage(this.neighbors.southWesternNeighbor(), "img/rooms/entrance-basement-west.png");
+            this.neighbors.southWesternNeighbor().type = "entrance";
         }
     }
 
