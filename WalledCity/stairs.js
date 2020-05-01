@@ -30,6 +30,29 @@ class Stairs{
             node.domElement.classList.add("stairs-l");
         }
 
+        if(northern_neighbor.type !== "stairs"){
+            node.domElement.className = "node";
+            if(node.floor_id === 6){
+                if(southern_neighbor.domElement.classList[1] === "stairs-l"){
+                    node.domElement.classList.add("stairs-down-lobby-l");
+                } else {
+                    node.domElement.classList.add("stairs-down-lobby-r");
+                }
+            } else if(node.floor_id < 6){
+                if(southern_neighbor.domElement.classList[1] === "stairs-l"){
+                    node.domElement.classList.add("stairs-down-l-underground");
+                } else {
+                    node.domElement.classList.add("stairs-down-r-underground");
+                }
+            } else {
+                if(southern_neighbor.domElement.classList[1] === "stairs-l"){
+                    node.domElement.classList.add("stairs-down-r");
+                } else {
+                    node.domElement.classList.add("stairs-down-l");
+                }
+            }
+        }
+
         if(this.isTopFloor(node) || northern_neighbor.type !== "stairs"){
             return;
         }
