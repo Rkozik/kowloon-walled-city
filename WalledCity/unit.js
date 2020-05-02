@@ -134,11 +134,11 @@ class Unit{
 
     isConnected(){
         let self = this;
-        // setInterval(function () {
-        //     if(!self.checkLobbyConnection()){
-        //         self.warnRow(self.node);
-        //     }
-        // }, 5000)
+        setInterval(function () {
+            if(!self.checkLobbyConnection()){
+                self.warnRow(self.node);
+            }
+        }, 5000)
     }
 
     collectRent(){
@@ -187,9 +187,9 @@ class Unit{
             return true;
         }
 
-        node.domElement.classList.add("no-lobby");
+        node.domElement.innerHTML = '<div class="no-connection"></div>';
         setTimeout(function () {
-            node.domElement.classList.remove("no-lobby");
+            node.domElement.innerHTML = "";
         }, 500);
 
         return this.warnRow(neighbors.easternNeighbor());
