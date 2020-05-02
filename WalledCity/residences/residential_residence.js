@@ -48,6 +48,9 @@ class ResidentialResidence{
                 let new_job = job.jobSearch(self.tenant.home);
                 if(new_job !== false){
                     self.tenant.setJob(new_job);
+                    self.node.domElement.innerHTML = "";
+                } else {
+                    self.node.domElement.innerHTML = '<div class="no-job"></div>';
                 }
             }
         }, 1000 * 3);
