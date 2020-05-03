@@ -27,7 +27,7 @@ class ResidentialResidence{
     }
 
     handleDemand(){
-        if(this.node.domElement.classList[1] === "residential-empty" && this.tower.demand.residential >= 1){
+        if(this.node.type === "residential-empty" && this.tower.demand.residential >= 1){
             this.node.domElement.className = "node";
 
             let residence_lvl1 = ["residential-occupied","residential-occupied-1","residential-occupied-2","residential-occupied-3"];
@@ -53,7 +53,7 @@ class ResidentialResidence{
         let job = new Job(this.tower);
         setInterval(function () {
             let tenant = self.tower.getTenant(self.node);
-            if(self.node.type === "residential-occupied" && tenant.isUnemployed() && !self.tower.getCrime(self.node)){
+            if(self.node.type === "residential-occupied" && tenant.isUnemployed()){
                 let new_job = job.jobSearch(tenant.home);
                 if(new_job !== false){
                     tenant.setJob(new_job);

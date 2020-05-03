@@ -26,6 +26,6 @@ class ResidenceUtils{
         tower.removeTenant(tower.getTenant(node));
         node.domElement.classList.add("abandoned");
         node.type = "abandoned";
-        node.innerHTML = "";
+        node.domElement.innerHTML = "";
     }
 }
