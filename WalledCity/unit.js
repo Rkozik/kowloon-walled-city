@@ -139,13 +139,19 @@ class Unit{
             if(!self.tower.getCrime(self.node)){
                 switch(self.node.type){
                     case "residential-occupied":
-                        self.bank_account.payRent("residential");
+                        if(!self.tower.getTenant(self.node).isUnemployed()){
+                            self.bank_account.payRent("residential");
+                        }
                         break;
                     case "commercial-occupied":
-                        self.bank_account.payRent("commercial");
+                        if(self.tower.getAvailableJobs(self.node).length === 0){
+                            self.bank_account.payRent("commercial");
+                        }
                         break;
                     case "industrial-occupied":
-                        self.bank_account.payRent("industrial");
+                        if(self.tower.getAvailableJobs(self.node).length === 0){
+                            self.bank_account.payRent("industrial");
+                        }
                         break;
                     default:
                         break;

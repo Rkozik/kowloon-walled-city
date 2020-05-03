@@ -51,7 +51,7 @@ class IndustrialResidence{
             for(let i=0;i<available_jobs.length;i++){
                 self.tower.demand.increaseResidentialDemand(1);
             }
-        }, 1000 * 10);
+        }, 1000 * 30);
     }
 
     checkDemand(){

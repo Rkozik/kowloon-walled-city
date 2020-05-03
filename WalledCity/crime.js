@@ -30,27 +30,31 @@ class Crime{
 
     start(){
         if(this.canHaveCrime(this.node)){
-            let unemployment = 0;
+            let crime_score = 0;
 
             let eastern_neighbor = this.tower.getTenant(this.neighbors.easternNeighbor());
             let western_neighbor = this.tower.getTenant(this.neighbors.westernNeighbor());
             let southern_neighbor = this.tower.getTenant(this.neighbors.westernNeighbor());
             let northern_neighbor = this.tower.getTenant(this.neighbors.northernNeighbor());
 
-            if(typeof eastern_neighbor !== "undefined" && eastern_neighbor.isUnemployed()){
-                unemployment += 1;
+            if(eastern_neighbor && eastern_neighbor.isUnemployed()){
+                crime_score += 1;
             }
-            if(typeof western_neighbor !== "undefined" && western_neighbor.isUnemployed()){
-                unemployment += 1;
+            if(western_neighbor && western_neighbor.isUnemployed()){
+                crime_score += 1;
             }
-            if(typeof southern_neighbor !== "undefined" && southern_neighbor.isUnemployed()){
-                unemployment += 1;
+            if(southern_neighbor && southern_neighbor.isUnemployed()){
+                crime_score += 1;
             }
-            if(typeof northern_neighbor !== "undefined" && northern_neighbor.isUnemployed()){
-                unemployment += 1;
+            if(northern_neighbor && northern_neighbor.isUnemployed()){
+                crime_score += 1;
             }
 
-            if( unemployment >= 2){
+            if(this.node.type === "abandoned"){
+                crime_score += 2;
+            }
+
+            if( crime_score >= 2){
                 if(this.random_utils.randomInRange(0, 9) === 0){
                     this.node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="crime"></div>';
                     this.removeJob(this.node);
@@ -70,7 +74,7 @@ class Crime{
     }
 
     spread(){
-        let spread = this.random_utils.randomInRange(0, 4) === 0;
+        let spread = this.random_utils.randomInRange(0, 2) === 0;
         if(spread){
             let neighbors = ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"];
             let random_neighbor = this.random_utils.randomInArray(neighbors);
@@ -117,8 +121,9 @@ class Crime{
     forceOutNeighbor(){
         if(this.tower.getCrime(this.node)){
             let random_neighbor = this.tower.getTenant(this.random_utils.randomInArray(this.influence));
-            if(this.random_utils.randomInRange(0,4) === 0 && random_neighbor && random_neighbor !== this.node){
+            if(this.random_utils.randomInRange(0,3) === 0 && random_neighbor && random_neighbor !== this.node){
                 this.residence_utils.abandon(random_neighbor.home, this.tower);
+                this.tower.demand.decreaseResidentialDemand(1.5);
             }
         }
     }
@@ -137,6 +142,6 @@ class Crime{
         return typeof node &&
             typeof this.tower.getCrime(node) === "undefined" &&
             node.type !== null &&
-            node.type.includes("occupied");
+            (node.type.includes("occupied") || node.type === "abandoned");
     }
 }

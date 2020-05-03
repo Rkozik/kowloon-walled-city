@@ -3,9 +3,9 @@ class Demand{
         this.residential = residential;
         this.commercial = commercial;
         this.industrial = industrial;
-        this.residential_limit = 10;
-        this.commercial_limit = 7;
-        this.industrial_limit = 9;
+        this.residential_limit = 20;
+        this.commercial_limit = 17;
+        this.industrial_limit = 19;
     }
 
     draw(){
