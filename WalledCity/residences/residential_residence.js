@@ -27,7 +27,7 @@ class ResidentialResidence{
     }
 
     handleDemand(){
-        if(this.node.type === "residential-empty" && this.tower.demand.residential >= 1){
+        if((this.node.type === "residential-empty" || this.node.type === "abandoned") && this.tower.demand.residential >= 1){
             this.node.domElement.className = "node";
 
             let residence_lvl1 = ["residential-occupied","residential-occupied-1","residential-occupied-2","residential-occupied-3"];
