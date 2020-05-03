@@ -5,7 +5,6 @@ class ResidentialResidence{
         this.tower = tower;
         this.bank_account = bank_account;
         this.random_utils = new RandomUtils();
-        this.tenant = new Tenant(this.node, this.tower);
     }
 
     draw(){
@@ -30,13 +29,18 @@ class ResidentialResidence{
             let residence_lvl1 = ["residential-occupied","residential-occupied-1","residential-occupied-2","residential-occupied-3"];
             let residence = this.random_utils.randomInArray(residence_lvl1);
             this.node.domElement.classList.add(residence);
-
             this.node.type = "residential-occupied";
-            this.tower.demand.decreaseResidentialDemand(1);
-            this.tower.demand.increaseCommercialDemand(0.075);
+
+            // Register tenant
+            let new_tenant = new Tenant(this.node, this.tower);
+            this.tower.addTenant(new_tenant);
 
             // Add tenant as a renter
             this.bank_account.addRenter(this.node);
+
+            // Modify demand
+            this.tower.demand.decreaseResidentialDemand(1);
+            this.tower.demand.increaseCommercialDemand(0.075);
         }
     }
 
@@ -44,13 +48,14 @@ class ResidentialResidence{
         let self = this;
         let job = new Job(this.tower);
         setInterval(function () {
-            if(self.node.type === "residential-occupied" && self.tenant.isUnemployed()){
-                let new_job = job.jobSearch(self.tenant.home);
+            let tenant = self.tower.getTenant(self.node);
+            if(self.node.type === "residential-occupied" && tenant.isUnemployed()){
+                let new_job = job.jobSearch(tenant.home);
                 if(new_job !== false){
-                    self.tenant.setJob(new_job);
+                    tenant.setJob(new_job);
                     self.node.domElement.innerHTML = "";
                 } else {
-                    self.node.domElement.innerHTML = '<div class="no-job"></div>';
+                    self.node.domElement.innerHTML = '<div id="'+self.node.domElement.id+'" class="no-job"></div>';
                 }
             }
         }, 1000 * 3);

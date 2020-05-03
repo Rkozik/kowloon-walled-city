@@ -4,8 +4,12 @@ class Tower{
         this.demand = demand;
         this.jobs = [];
         this.lobbies = [];
+        this.tenants = new Map();
+        this.policed_area = [];
+        this.crimes = new Map();
     }
 
+    /** Floor Repo **/
     addFloor(floor){
         this.floors.push(floor);
     }
@@ -23,6 +27,7 @@ class Tower{
         return this.floors.length;
     }
 
+    /** Jobs Repo **/
     addJob(job){
         this.jobs.push(job);
     }
@@ -41,6 +46,7 @@ class Tower{
         return this.jobs.length;
     }
 
+    /** Lobby Repo **/
     addLobby(lobby){
         this.lobbies.push(lobby);
     }
@@ -55,5 +61,49 @@ class Tower{
     getLobby(node){
         let index = this.lobbies.indexOf(node);
         return index !== -1 ? this.lobbies[index] : false;
+    }
+
+    /** Tenants Repo **/
+    addTenant(tenant){
+        this.tenants.set(tenant.home, tenant);
+    }
+
+    removeTenant(tenant){
+        this.tenants.delete(tenant.home);
+    }
+
+    getTenant(node){
+        return this.tenants.get(node);
+    }
+
+    /** Policed Repo **/
+    addPolicedArea(policed_area){
+        this.policed_area.concat(policed_area);
+    }
+
+    removePolicedArea(policed_area){
+        for(let i=0; i<policed_area.length; i++){
+            let index = this.policed_area.indexOf(policed_area[i]);
+            if(index !== -1){
+                this.policed_area.splice(index, 1);
+            }
+        }
+    }
+
+    isPoliced(node){
+        return this.policed_area.includes(node);
+    }
+
+    /** Crime repo **/
+    addCrime(crime){
+        this.crimes.set(crime.node, crime);
+    }
+
+    removeCrime(crime){
+        this.crimes.remove(crime.node);
+    }
+
+    getCrime(node){
+        return this.crimes.get(node);
     }
 }

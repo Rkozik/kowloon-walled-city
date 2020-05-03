@@ -6,6 +6,7 @@ class Unit{
         this.bank_account = bank_account;
         this.neighbors = new Neighbor(this.node, this.tower);
         this.utils = new DrawUtils();
+        this.crime = new Crime(this.node, this.tower);
     }
 
     draw(){
@@ -44,6 +45,7 @@ class Unit{
 
         this.isConnected();
         this.collectRent();
+        this.hasCrime();
     }
 
     handleSouthernNeighborBelowGround(){
@@ -132,21 +134,14 @@ class Unit{
         }
     }
 
-    isConnected(){
-        let self = this;
-        setInterval(function () {
-            if(!self.checkLobbyConnection()){
-                self.warnRow(self.node);
-            }
-        }, 5000)
-    }
-
     collectRent(){
         let self = this;
         setInterval(function () {
             switch(self.node.type){
                 case "residential-occupied":
-                    self.bank_account.payRent("residential");
+                    if(self.tower.getCrime(self.node) !== "undefined"){
+                        self.bank_account.payRent("residential");
+                    }
                     break;
                 case "commercial-occupied":
                     self.bank_account.payRent("commercial");
@@ -158,6 +153,27 @@ class Unit{
                     break;
             }
         }, 30000);
+    }
+
+    hasCrime(){
+        let self = this;
+        setInterval(function () {
+            if(self.node.type === "residential-occupied"){
+                self.crime.check();
+                if(typeof self.tower.getCrime(self.node) !== "undefined"){
+                    self.node.domElement.setAttribute('style','background-color:blue');
+                }
+            }
+        }, 30000);
+    }
+
+    isConnected(){
+        let self = this;
+        setInterval(function () {
+            if(!self.checkLobbyConnection()){
+                self.warnRow(self.node);
+            }
+        }, 5000)
     }
 
     checkLobbyConnection(){
@@ -187,7 +203,7 @@ class Unit{
             return true;
         }
 
-        node.domElement.innerHTML = '<div class="no-connection"></div>';
+        node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="no-connection"></div>';
         setTimeout(function () {
             node.domElement.innerHTML = "";
         }, 500);
