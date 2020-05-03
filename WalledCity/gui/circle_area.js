@@ -44,10 +44,12 @@ class CircleArea{
         let new_floor = floor - 1;
 
         if(new_floor !== -1){
-            if(neighbors.easternNeighbor().position_id <= end_position.position_id){
+            if(neighbors.easternNeighbor() && neighbors.easternNeighbor().position_id <= end_position.position_id){
                 return this.getContents(neighbors.easternNeighbor(), end_position, floor, contents);
             } else {
-                let next_row_first = this.tower.getFloor(new_floor).getNode((node.position_id - (this.radius * 2)));
+                let next_row_first = (node.position_id - (this.radius * 2)) >= 0 ?
+                    this.tower.getFloor(new_floor).getNode((node.position_id - (this.radius * 2))) :
+                    this.tower.getFloor(new_floor).getNode(0);
                 return this.getContents(next_row_first, end_position, new_floor, contents);
             }
         }
@@ -96,12 +98,17 @@ class CircleArea{
 
     searchStartPosition(node, steps=0){
         let neighbors = new Neighbor(node, this.tower);
-        if (steps === this.radius * 2){
+        if (steps === this.radius * 2 || !neighbors.northernNeighbor()){
             return node;
         }
 
         if(steps < this.radius){
-            return this.searchStartPosition(neighbors.westernNeighbor(), steps + 1);
+            if(neighbors.westernNeighbor()){
+                return this.searchStartPosition(neighbors.westernNeighbor(), steps + 1);
+            }
+            // Handle if we're at the left edge of the map
+            let max_steps_left = this.radius / 2;
+            return this.searchStartPosition(neighbors.northernNeighbor(), steps + max_steps_left + 1);
         } else {
             return this.searchStartPosition(neighbors.northernNeighbor(), steps + 1);
         }
@@ -109,7 +116,7 @@ class CircleArea{
 
     searchEndPosition(node, steps=0){
         let neighbors = new Neighbor(node, this.tower);
-        if (steps === this.radius * 2){
+        if (steps === this.radius * 2 || !neighbors.easternNeighbor()){
             return node;
         }
 

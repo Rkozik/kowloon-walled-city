@@ -23,6 +23,10 @@ class Floor {
         return false;
     }
 
+    getTotalNodes(){
+        return this.node_list.length - 1;
+    }
+
     updateNodes(){
         this.node_list.forEach(function (node) {
 
