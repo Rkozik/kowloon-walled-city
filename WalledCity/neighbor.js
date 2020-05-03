@@ -8,7 +8,7 @@ class Neighbor{
     northernNeighbor(){
         let their_floor = this.floor + 1;
         let their_position = this.position;
-        return this.tower.getFloor(their_floor).getNode(their_position);
+        return this.tower.getTotalFloors() >= their_floor ? this.tower.getFloor(their_floor).getNode(their_position) : undefined;
     }
 
     northWesternNeighbor(){
@@ -38,7 +38,7 @@ class Neighbor{
     southernNeighbor(){
         let their_floor = this.floor - 1;
         let their_position = this.position;
-        return this.tower.getFloor(their_floor).getNode(their_position);
+        return  their_floor >= 0 ? this.tower.getFloor(their_floor).getNode(their_position) : undefined;
     }
 
     southWesternNeighbor(){
