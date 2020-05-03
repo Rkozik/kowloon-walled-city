@@ -136,20 +136,20 @@ class Unit{
     collectRent(){
         let self = this;
         setInterval(function () {
-            switch(self.node.type){
-                case "residential-occupied":
-                    if(self.tower.getCrime(self.node) !== "undefined"){
+            if(!self.tower.getCrime(self.node)){
+                switch(self.node.type){
+                    case "residential-occupied":
                         self.bank_account.payRent("residential");
-                    }
-                    break;
-                case "commercial-occupied":
-                    self.bank_account.payRent("commercial");
-                    break;
-                case "industrial-occupied":
-                    self.bank_account.payRent("industrial");
-                    break;
-                default:
-                    break;
+                        break;
+                    case "commercial-occupied":
+                        self.bank_account.payRent("commercial");
+                        break;
+                    case "industrial-occupied":
+                        self.bank_account.payRent("industrial");
+                        break;
+                    default:
+                        break;
+                }
             }
         }, 30000);
     }

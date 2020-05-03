@@ -76,7 +76,9 @@ class Stairs{
             this.neighbors.easternNeighbor() &&
             this.neighbors.westernNeighbor() &&
             this.node.domElement.classList.length > 1 &&
-            this.node.type !== "stairs");
+            (this.node.type === "empty" ||
+            this.node.type === "lobby" ||
+            this.node.type === "empty-basement"));
     }
 
     isLobby(){

@@ -42,6 +42,15 @@ class Tower{
         return open_jobs;
     }
 
+    getTenantsJob(tenant){
+        for(let i=0; i<this.jobs.length;i++){
+            if(this.jobs[i].worker === tenant.home){
+                return this.jobs[i];
+            }
+        }
+        return undefined;
+    }
+
     getTotalJobs(){
         return this.jobs.length - 1;
     }

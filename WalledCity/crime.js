@@ -46,8 +46,8 @@ class Crime{
 
             if( unemployment >= 2){
                 if(this.random_utils.randomInRange(0, 9) === 0){
-                    console.log("crime time");
                     this.node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="crime"></div>';
+                    this.removeJob(this.node);
                     return this.tower.addCrime(this);
                 }
             }
@@ -57,7 +57,6 @@ class Crime{
     stop(){
         if(typeof this.tower.getCrime(this.node) !== "undefined"){
             if(this.random_utils.randomInRange(0, 26) === 0){
-                console.log("stopped");
                 this.node.domElement.innerHTML = "";
                 return this.tower.removeCrime(this);
             }
@@ -65,9 +64,9 @@ class Crime{
     }
 
     spread(){
-        let spread = this.random_utils.randomInRange(0, 9) === 0;
+        let spread = this.random_utils.randomInRange(0, 4) === 0;
         if(spread){
-            let neighbors = ["north", "south", "east", "west"];
+            let neighbors = ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"];
             let random_neighbor = this.random_utils.randomInArray(neighbors);
             let spread_to = null;
             switch(random_neighbor){
@@ -82,16 +81,27 @@ class Crime{
                     break;
                 case "west":
                     spread_to =  this.neighbors.westernNeighbor();
-                    break
+                    break;
+                case "northeast":
+                    spread_to =  this.neighbors.northEasternNeighbor();
+                    break;
+                case "northwest":
+                    spread_to =  this.neighbors.northWesternNeighbor();
+                    break;
+                case "southeast":
+                    spread_to =  this.neighbors.southEasternNeighbor();
+                    break;
+                case "southwest":
+                    spread_to =  this.neighbors.southWesternNeighbor();
+                    break;
             }
 
             if(this.canHaveCrime(spread_to)){
-                let new_crime = new Crime(this.tower.getTenant(spread_to).home, this.tower);
+                let neighbor = this.tower.getTenant(spread_to);
+                let new_crime = new Crime(neighbor.home, this.tower);
                 this.tower.addCrime(new_crime);
                 this.node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="crime"></div>';
-
-                // TODO: If crime spreads, the tenant should lose their job.
-
+                this.removeJob(this.node);
             }
         }
     }
@@ -99,9 +109,17 @@ class Crime{
     forceOutNeighbor(){
         if(this.tower.getCrime(this.node)){
             let random_neighbor = this.random_utils.randomInArray(this.influence);
-            if(this.random_utils.randomInRange(0,9) === 0 && this.canHaveCrime(random_neighbor)){
+            if(this.random_utils.randomInRange(0,4) === 0 && this.canHaveCrime(random_neighbor)){
                 this.residence_utils.abandon(random_neighbor, this.tower);
+                this.removeJob(this.node);
             }
+        }
+    }
+
+    removeJob(node){
+        let job = this.tower.getTenantsJob(this.tower.getTenant(node));
+        if(job){
+            job.removeWorker(this.tower.getTenant(node));
         }
     }
 
