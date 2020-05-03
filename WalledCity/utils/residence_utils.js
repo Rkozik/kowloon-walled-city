@@ -22,8 +22,10 @@ class ResidenceUtils{
         return false;
     }
 
-    abandon(node, type){
+    abandon(node, tower){
+        tower.removeTenant(tower.getTenant(node));
         node.domElement.classList.add("abandoned");
-        node.type = type + "-abandoned";
+        node.type = "abandoned";
+        node.innerHTML = "";
     }
 }

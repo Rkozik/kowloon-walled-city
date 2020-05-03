@@ -46,7 +46,7 @@ class Crime{
 
             if( unemployment >= 2){
                 if(this.random_utils.randomInRange(0, 9) === 0){
-                    this.node.domElement.setAttribute('style','background-color:blue');
+                    this.node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="crime"></div>';
                     return this.tower.addCrime(this);
                 }
             }
@@ -56,7 +56,7 @@ class Crime{
     stop(){
         if(typeof this.tower.getCrime(this.node) !== "undefined"){
             if(this.random_utils.randomInRange(0, 26) === 0){
-                this.node.domElement.setAttribute('style','background-color:white');
+                this.node.domElement.innerHTML = "";
                 return this.tower.removeCrime(this);
             }
         }
@@ -70,21 +70,21 @@ class Crime{
             let spread_to = null;
             switch(random_neighbor){
                 case "north":
-                    spread_to =  this.tower.getTenant(this.neighbors.northernNeighbor());
+                    spread_to =  this.neighbors.northernNeighbor();
                     break;
                 case "south":
-                    spread_to =  this.tower.getTenant(this.neighbors.southernNeighbor());
+                    spread_to =  this.neighbors.southernNeighbor();
                     break;
                 case "east":
-                    spread_to =  this.tower.getTenant(this.neighbors.easternNeighbor());
+                    spread_to =  this.neighbors.easternNeighbor();
                     break;
                 case "west":
-                    spread_to =  this.tower.getTenant(this.neighbors.westernNeighbor());
+                    spread_to =  this.neighbors.westernNeighbor();
                     break
             }
 
             if(this.canHaveCrime(spread_to)){
-                let new_crime = new Crime(spread_to, this.tower);
+                let new_crime = new Crime(this.tower.getTenant(spread_to), this.tower);
                 this.tower.addCrime(new_crime);
                 spread_to.domElement.setAttribute('style','background-color:green');
             }
@@ -92,15 +92,17 @@ class Crime{
     }
 
     forceOutNeighbor(){
+        if(this.tower.getCrime(this.node)){
             let random_neighbor = this.random_utils.randomInArray(this.influence);
             if(this.random_utils.randomInRange(0,9) === 0 && this.canHaveCrime(random_neighbor)){
-                console.log("abandoned");
-                this.residence_utils.abandon(random_neighbor, "residential");
+                console.log("abandoned", random_neighbor);
+                this.residence_utils.abandon(random_neighbor, this.tower);
             }
+        }
     }
 
     canHaveCrime(node){
-        return typeof node !== "undefined" &&
+        return typeof node &&
             typeof this.tower.getCrime(node) === "undefined" &&
             node.type !== null &&
             node.type.includes("occupied");

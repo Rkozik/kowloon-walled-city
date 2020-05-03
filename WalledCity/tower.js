@@ -24,7 +24,7 @@ class Tower{
     }
 
     getTotalFloors(){
-        return this.floors.length;
+        return this.floors.length - 1;
     }
 
     /** Jobs Repo **/
@@ -43,7 +43,7 @@ class Tower{
     }
 
     getTotalJobs(){
-        return this.jobs.length;
+        return this.jobs.length - 1;
     }
 
     /** Lobby Repo **/
@@ -69,6 +69,7 @@ class Tower{
     }
 
     removeTenant(tenant){
+        // TODO: Remove from job.
         this.tenants.delete(tenant.home);
     }
 
