@@ -22,7 +22,7 @@ class CommercialResidence{
     }
 
     handleDemand(){
-        if(this.node.domElement.classList[1] === "commercial-empty" && this.tower.demand.commercial >= 1){
+        if((this.node.domElement.classList[1] === "commercial-empty" || this.node.type === "abandoned") && this.tower.demand.commercial >= 1){
             this.node.domElement.className = "node";
             let residence_lvl1 = ["commercial-occupied", "commercial-occupied-1", "commercial-occupied-2"];
             let residence = this.random_utils.randomInArray(residence_lvl1);

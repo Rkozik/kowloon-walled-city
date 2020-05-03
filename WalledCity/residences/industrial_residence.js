@@ -21,7 +21,7 @@ class IndustrialResidence{
     }
 
     handleDemand(){
-        if(this.node.domElement.classList[1] === "industrial-empty" && this.tower.demand.industrial >= 1){
+        if((this.node.domElement.classList[1] === "industrial-empty" || this.node.type === "abandoned") && this.tower.demand.industrial >= 1){
             this.node.domElement.className = "node";
             let residence_lvl1 = ["industrial-occupied", "industrial-occupied-1", "industrial-occupied-2"];
             let residence = this.random_utils.randomInArray(residence_lvl1);
