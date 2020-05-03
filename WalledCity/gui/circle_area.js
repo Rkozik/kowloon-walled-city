@@ -33,7 +33,7 @@ class CircleArea{
 
     getContents(node, end_position, floor, contents=[]){
         let neighbors = new Neighbor(node, this.tower);
-        if(floor === end_position.floor_id - 1){
+        if(floor === end_position.floor_id - 1 || floor === -1){
             return contents;
         }
 
@@ -41,13 +41,17 @@ class CircleArea{
             contents.push(node);
         }
 
-        if(neighbors.easternNeighbor().position_id <= end_position.position_id){
-            return this.getContents(neighbors.easternNeighbor(), end_position, floor);
-        } else {
-            let new_floor = floor - 1;
-            let next_row_first = this.tower.getFloor(new_floor).getNode((node.position_id - (this.radius * 2)));
-            return this.getContents(next_row_first, end_position, new_floor);
+        let new_floor = floor - 1;
+
+        if(new_floor !== -1){
+            if(neighbors.easternNeighbor().position_id <= end_position.position_id){
+                return this.getContents(neighbors.easternNeighbor(), end_position, floor, contents);
+            } else {
+                let next_row_first = this.tower.getFloor(new_floor).getNode((node.position_id - (this.radius * 2)));
+                return this.getContents(next_row_first, end_position, new_floor, contents);
+            }
         }
+        return this.getContents(node, end_position, new_floor, contents);
     }
 
     // TODO: Refactor paint/unpaint to leverage contents instead of re-implementing search method.
@@ -112,7 +116,11 @@ class CircleArea{
         if(steps < this.radius){
             return this.searchEndPosition(neighbors.easternNeighbor(), steps + 1);
         } else {
-            return this.searchEndPosition(neighbors.southernNeighbor(), steps + 1);
+            if(neighbors.southernNeighbor()){
+                return this.searchEndPosition(neighbors.southernNeighbor(), steps + 1);
+            } else {
+                return this.searchEndPosition(node, this.radius * 2);
+            }
         }
     }
 }
