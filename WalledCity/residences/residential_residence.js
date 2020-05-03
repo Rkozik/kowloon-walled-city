@@ -53,7 +53,7 @@ class ResidentialResidence{
         let job = new Job(this.tower);
         setInterval(function () {
             let tenant = self.tower.getTenant(self.node);
-            if(self.node.type === "residential-occupied" && tenant.isUnemployed()){
+            if(self.node.type === "residential-occupied" && tenant.isUnemployed() && !self.tower.getCrime(self.node)){
                 let new_job = job.jobSearch(tenant.home);
                 if(new_job !== false){
                     tenant.setJob(new_job);

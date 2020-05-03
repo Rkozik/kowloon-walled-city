@@ -46,6 +46,7 @@ class Crime{
 
             if( unemployment >= 2){
                 if(this.random_utils.randomInRange(0, 9) === 0){
+                    console.log("crime time");
                     this.node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="crime"></div>';
                     return this.tower.addCrime(this);
                 }
@@ -56,6 +57,7 @@ class Crime{
     stop(){
         if(typeof this.tower.getCrime(this.node) !== "undefined"){
             if(this.random_utils.randomInRange(0, 26) === 0){
+                console.log("stopped");
                 this.node.domElement.innerHTML = "";
                 return this.tower.removeCrime(this);
             }
@@ -87,6 +89,9 @@ class Crime{
                 let new_crime = new Crime(this.tower.getTenant(spread_to).home, this.tower);
                 this.tower.addCrime(new_crime);
                 this.node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="crime"></div>';
+
+                // TODO: If crime spreads, the tenant should lose their job.
+
             }
         }
     }
