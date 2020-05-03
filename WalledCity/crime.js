@@ -15,11 +15,17 @@ class Crime{
         setInterval(function () {
             self.start();
             if(self.tower.getCrime(self.node)){
-                self.spread();
                 self.forceOutNeighbor();
                 self.stop();
             }
-        }, 30000)
+        }, 15000);
+
+        setInterval(function () {
+            if(self.tower.getCrime(self.node)){
+                self.spread();
+            }
+        }, 10000)
+
     }
 
     start(){
@@ -98,28 +104,32 @@ class Crime{
 
             if(this.canHaveCrime(spread_to)){
                 let neighbor = this.tower.getTenant(spread_to);
-                let new_crime = new Crime(neighbor.home, this.tower);
-                this.tower.addCrime(new_crime);
-                this.node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="crime"></div>';
-                this.removeJob(this.node);
+                if(neighbor){
+                    let new_crime = new Crime(neighbor.home, this.tower);
+                    this.tower.addCrime(new_crime);
+                    neighbor.home.domElement.innerHTML = '<div id="'+neighbor.home.domElement.id+'" class="crime"></div>';
+                    this.removeJob(this.node);
+                }
             }
         }
     }
 
     forceOutNeighbor(){
         if(this.tower.getCrime(this.node)){
-            let random_neighbor = this.random_utils.randomInArray(this.influence);
-            if(this.random_utils.randomInRange(0,4) === 0 && this.canHaveCrime(random_neighbor)){
-                this.residence_utils.abandon(random_neighbor, this.tower);
-                this.removeJob(this.node);
+            let random_neighbor = this.tower.getTenant(this.random_utils.randomInArray(this.influence));
+            if(this.random_utils.randomInRange(0,4) === 0 && random_neighbor && random_neighbor !== this.node){
+                this.residence_utils.abandon(random_neighbor.home, this.tower);
             }
         }
     }
 
     removeJob(node){
-        let job = this.tower.getTenantsJob(this.tower.getTenant(node));
-        if(job){
-            job.removeWorker(this.tower.getTenant(node));
+        let tenant = this.tower.getTenant(node);
+        if(tenant){
+            let job = this.tower.getTenantsJob(tenant);
+            if(job){
+                job.removeWorker(this.tower.getTenant(node));
+            }
         }
     }
 

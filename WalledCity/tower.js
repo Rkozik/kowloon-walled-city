@@ -116,4 +116,8 @@ class Tower{
     getCrime(node){
         return this.crimes.get(node);
     }
+
+    getTotalCrimes(){
+        return this.crimes.size;
+    }
 }

@@ -23,9 +23,20 @@ class ResidenceUtils{
     }
 
     abandon(node, tower){
+        this.removeJob(node, tower);
         tower.removeTenant(tower.getTenant(node));
         node.domElement.classList.add("abandoned");
         node.type = "abandoned";
         node.domElement.innerHTML = "";
+    }
+
+    removeJob(node,tower){
+        let tenant = tower.getTenant(node);
+        if(tenant){
+            let job = tower.getTenantsJob(tenant);
+            if(job){
+                job.removeWorker(tower.getTenant(node));
+            }
+        }
     }
 }
