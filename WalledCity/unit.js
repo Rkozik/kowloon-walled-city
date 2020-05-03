@@ -45,7 +45,6 @@ class Unit{
 
         this.isConnected();
         this.collectRent();
-        this.hasCrime();
     }
 
     handleSouthernNeighborBelowGround(){
@@ -151,18 +150,6 @@ class Unit{
                     break;
                 default:
                     break;
-            }
-        }, 30000);
-    }
-
-    hasCrime(){
-        let self = this;
-        setInterval(function () {
-            if(self.node.type === "residential-occupied"){
-                self.crime.check();
-                if(typeof self.tower.getCrime(self.node) !== "undefined"){
-                    self.node.domElement.setAttribute('style','background-color:blue');
-                }
             }
         }, 30000);
     }

@@ -42,11 +42,11 @@ class CircleArea{
         }
 
         if(neighbors.easternNeighbor().position_id <= end_position.position_id){
-            return this.paint(neighbors.easternNeighbor(), end_position, floor);
+            return this.getContents(neighbors.easternNeighbor(), end_position, floor);
         } else {
             let new_floor = floor - 1;
             let next_row_first = this.tower.getFloor(new_floor).getNode((node.position_id - (this.radius * 2)));
-            return this.paint(next_row_first, end_position, new_floor);
+            return this.getContents(next_row_first, end_position, new_floor);
         }
     }
 

@@ -100,7 +100,7 @@ class Tower{
     }
 
     removeCrime(crime){
-        this.crimes.remove(crime.node);
+        this.crimes.delete(crime.node);
     }
 
     getCrime(node){

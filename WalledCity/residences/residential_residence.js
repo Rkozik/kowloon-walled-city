@@ -18,6 +18,10 @@ class ResidentialResidence{
         this.checkJobs()
     }
 
+    erase(){
+
+    }
+
     canConstruct(){
         return this.node.domElement.classList[1] === "empty" || this.node.domElement.classList[1] === "empty-basement";
     }

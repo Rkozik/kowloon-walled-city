@@ -21,4 +21,9 @@ class ResidenceUtils{
         }
         return false;
     }
+
+    abandon(node, type){
+        node.domElement.classList.add("abandoned");
+        node.type = type + "-abandoned";
+    }
 }
