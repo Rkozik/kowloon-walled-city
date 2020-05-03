@@ -1,5 +1,5 @@
 class BankAccount{
-    constructor(initial_balance) {
+    constructor(initial_balance, clock) {
         this.balance = initial_balance;
         this.residential_renters = new Map();
         this.commercial_renters = new Map();
@@ -7,6 +7,8 @@ class BankAccount{
         this.residential_rent = 50;
         this.commercial_rent = 75;
         this.industrial_rent = 100;
+        this.paid_today = 0;
+        this.paid_yesterday = 0;
     }
 
     deposit(money){
@@ -28,6 +30,11 @@ class BankAccount{
             balance.innerHTML = '<b>' + formatter.format(self.balance)+ '</b>';
             self.calculateRent();
         }, 0);
+
+        setInterval(function () {
+            self.paid_yesterday = self.paid_today;
+            self.paid_today = 0;
+        }, 30000);
     }
 
     addRenter(node){
@@ -53,34 +60,29 @@ class BankAccount{
         switch (type) {
             case "residential":
                 this.deposit(this.residential_rent);
+                this.paid_today += this.residential_rent;
                 break;
             case "commercial":
                 this.deposit(this.commercial_rent);
+                this.paid_today += this.commercial_rent;
                 break;
             case "industrial":
                 this.deposit(this.industrial_rent);
+                this.paid_today += this.industrial_rent;
                 break;
             default:
                 break;
-
         }
     }
 
     calculateRent(){
-        let residential_income = this.residential_renters.size * this.residential_rent;
-        let commercial_income = this.commercial_renters.size * this.commercial_rent;
-        let industrial_income = this.industrial_renters.size * this.industrial_rent;
-
         let rental_income = document.getElementById("rental-income");
-
         let formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
         });
 
-        let total_rent = residential_income + commercial_income + industrial_income;
-
-        rental_income.innerHTML = '<b>+' + formatter.format(total_rent) + "</b>";
+        rental_income.innerHTML = '<b>+' + formatter.format(this.paid_yesterday) + "</b>";
 
     }
 }

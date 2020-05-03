@@ -48,7 +48,6 @@ class IndustrialResidence{
         let self = this;
         setInterval(function () {
             let available_jobs = self.tower.getLocationsAvailableJobs(self.node);
-            console.log(available_jobs, self.tower.demand);
             for(let i=0;i<available_jobs.length;i++){
                 self.tower.demand.increaseResidentialDemand(1);
             }
