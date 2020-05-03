@@ -15,6 +15,7 @@ class CommercialResidence{
         }
         this.checkDemand();
         this.increaseDemand();
+        this.handleVacantJobs();
     }
 
     canConstruct(){
@@ -42,6 +43,16 @@ class CommercialResidence{
             new_job_2.setLocation(this.node);
             this.tower.addJob(new_job_2);
         }
+    }
+
+    handleVacantJobs(){
+        let self = this;
+        setInterval(function () {
+            let available_jobs = self.tower.getLocationsAvailableJobs(self.node);
+            for(let i=0;i<available_jobs.length;i++){
+                self.tower.demand.increaseResidentialDemand(1);
+            }
+        }, 1000 * 10);
     }
 
     checkDemand(){

@@ -190,7 +190,7 @@ class Unit{
             return true;
         }
 
-        node.domElement.innerHTML = '<div id="'+this.node.domElement.id+'" class="no-connection"></div>';
+        node.domElement.innerHTML = '<div id="'+node.domElement.id+'" class="no-connection"></div>';
         setTimeout(function () {
             node.domElement.innerHTML = "";
         }, 500);

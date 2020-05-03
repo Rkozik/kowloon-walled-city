@@ -77,7 +77,7 @@ class ResidentialResidence{
     increaseDemand(){
         let self = this;
         setInterval(function () {
-            if(self.node.type === "residential-occupied"){
+            if(self.node.type === "residential-occupied" && !self.tower.getCrime(self.node)){
                 self.tower.demand.increaseCommercialDemand(0.025);
             }
         }, 1000 * 45);

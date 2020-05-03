@@ -15,7 +15,6 @@ class Job{
     }
 
     removeWorker(worker){
-        console.log("removed worker ", worker, this.tower.jobs);
         this.worker = null;
         worker.job = null;
     }

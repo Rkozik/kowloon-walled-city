@@ -5,6 +5,7 @@ class IndustrialResidence{
         this.tower = tower;
         this.bank_account = bank_account;
         this.random_utils = new RandomUtils();
+        this.jobs = new Job(this.tower);
     }
 
     draw(){
@@ -14,6 +15,7 @@ class IndustrialResidence{
             this.node.type = "industrial-empty";
         }
         this.checkDemand();
+        this.handleVacantJobs();
     }
 
     canConstruct(){
@@ -28,7 +30,6 @@ class IndustrialResidence{
             this.node.domElement.classList.add(residence);
             this.node.type = "industrial-occupied";
             this.tower.demand.decreaseIndustrialDemand(1);
-            this.tower.demand.increaseResidentialDemand(2);
             this.bank_account.addRenter(this.node);
 
             // Add job to job list
@@ -41,6 +42,17 @@ class IndustrialResidence{
             this.tower.addJob(new_job);
             this.tower.addJob(new_job2);
         }
+    }
+
+    handleVacantJobs(){
+        let self = this;
+        setInterval(function () {
+            let available_jobs = self.tower.getLocationsAvailableJobs(self.node);
+            console.log(available_jobs, self.tower.demand);
+            for(let i=0;i<available_jobs.length;i++){
+                self.tower.demand.increaseResidentialDemand(1);
+            }
+        }, 1000 * 10);
     }
 
     checkDemand(){

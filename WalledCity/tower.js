@@ -32,6 +32,16 @@ class Tower{
         this.jobs.push(job);
     }
 
+    getLocationsAvailableJobs(location){
+        let available_jobs = [];
+        for(let i=0; i<this.jobs.length;i++){
+            if(this.jobs[i].location === location && this.jobs[i].worker === null){
+                available_jobs.push(this.jobs[i])
+            }
+        }
+        return available_jobs;
+    }
+
     getAvailableJobs(){
         let open_jobs = [];
         for(let i=0; i<this.jobs.length;i++){
