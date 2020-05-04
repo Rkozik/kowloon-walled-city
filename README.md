@@ -1,4 +1,8 @@
 # kowloon-walled-city
+
+Play latest version: [w.alled.city](http://w.alled.city)
+
+
 Kowloon Walled City is a simulation game written in plain old vanilla JavaSript, HTML, and CSS. 
 
 The game, as the name suggests, is loosely based off a tower block in Hong Kong that was demolished.
