@@ -27,7 +27,12 @@ class ResidentialResidence{
     }
 
     handleDemand(){
-        if((this.node.type === "residential-empty" || this.node.type === "abandoned")
+        let build_on_abandoned = false;
+        if(this.node.type === "abandoned"){
+            build_on_abandoned = this.random_utils.randomInRange(0, 9) === 0;
+        }
+
+        if((this.node.type === "residential-empty" || build_on_abandoned)
             && this.tower.demand.residential >= 1 && !this.tower.getCrime(self.node)){
             this.node.domElement.className = "node";
 

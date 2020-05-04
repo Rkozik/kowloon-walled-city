@@ -76,38 +76,9 @@ class Crime{
     spread(){
         let spread = this.random_utils.randomInRange(0, 2) === 0;
         if(spread){
-            let neighbors = ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"];
-            let random_neighbor = this.random_utils.randomInArray(neighbors);
-            let spread_to = null;
-            switch(random_neighbor){
-                case "north":
-                    spread_to =  this.neighbors.northernNeighbor();
-                    break;
-                case "south":
-                    spread_to =  this.neighbors.southernNeighbor();
-                    break;
-                case "east":
-                    spread_to =  this.neighbors.easternNeighbor();
-                    break;
-                case "west":
-                    spread_to =  this.neighbors.westernNeighbor();
-                    break;
-                case "northeast":
-                    spread_to =  this.neighbors.northEasternNeighbor();
-                    break;
-                case "northwest":
-                    spread_to =  this.neighbors.northWesternNeighbor();
-                    break;
-                case "southeast":
-                    spread_to =  this.neighbors.southEasternNeighbor();
-                    break;
-                case "southwest":
-                    spread_to =  this.neighbors.southWesternNeighbor();
-                    break;
-            }
-
-            if(this.canHaveCrime(spread_to)){
-                let neighbor = this.tower.getTenant(spread_to);
+            let random_neighbor = this.random_utils.randomInArray(this.influence);
+            if(this.canHaveCrime(random_neighbor)){
+                let neighbor = this.tower.getTenant(random_neighbor);
                 if(neighbor){
                     let new_crime = new Crime(neighbor.home, this.tower);
                     this.tower.addCrime(new_crime);
@@ -121,7 +92,7 @@ class Crime{
     forceOutNeighbor(){
         if(this.tower.getCrime(this.node)){
             let random_neighbor = this.tower.getTenant(this.random_utils.randomInArray(this.influence));
-            if(this.random_utils.randomInRange(0,3) === 0 && random_neighbor && random_neighbor !== this.node){
+            if(this.random_utils.randomInRange(0,6) === 0 && random_neighbor && random_neighbor !== this.node){
                 this.residence_utils.abandon(random_neighbor.home, this.tower);
                 this.tower.demand.decreaseResidentialDemand(1.5);
             }
@@ -139,9 +110,9 @@ class Crime{
     }
 
     canHaveCrime(node){
-        return typeof node &&
-            typeof this.tower.getCrime(node) === "undefined" &&
+        return node &&
             node.type !== null &&
+            node.type !== "stairs" &&
             (node.type.includes("occupied") || node.type === "abandoned");
     }
 }

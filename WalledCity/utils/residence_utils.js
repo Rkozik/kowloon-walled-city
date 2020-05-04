@@ -23,8 +23,10 @@ class ResidenceUtils{
     }
 
     abandon(node, tower){
+        this.removeCrime(node, tower);
         this.removeJob(node, tower);
-        tower.removeTenant(tower.getTenant(node));
+        this.removeTenant(node, tower);
+
         node.domElement.classList.add("abandoned");
         node.type = "abandoned";
         node.domElement.innerHTML = "";
@@ -37,6 +39,20 @@ class ResidenceUtils{
             if(job){
                 job.removeWorker(tower.getTenant(node));
             }
+        }
+    }
+
+    removeCrime(node, tower){
+        let crime = tower.getCrime(node);
+        if(crime){
+            tower.removeCrime(crime);
+        }
+    }
+
+    removeTenant(node, tower){
+        let tenant = tower.getTenant(node);
+        if(tenant){
+            tower.removeTenant(tenant);
         }
     }
 }

@@ -41,15 +41,15 @@ class BankAccount{
         switch (node.type) {
             case "residential-occupied":
                 this.residential_renters.set(node, true);
-                this.deposit(1000);
+                this.deposit(250);
                 break;
             case "commercial-occupied":
                 this.commercial_renters.set(node, true);
-                this.deposit(1500);
+                this.deposit(500);
                 break;
             case "industrial-occupied":
                 this.industrial_renters.set(node, true);
-                this.deposit(1750);
+                this.deposit(750);
                 break;
             default:
                 break;
@@ -83,6 +83,5 @@ class BankAccount{
         });
 
         rental_income.innerHTML = '<b>+' + formatter.format(this.paid_yesterday) + "</b>";
-
     }
 }
