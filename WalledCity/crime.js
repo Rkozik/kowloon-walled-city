@@ -74,16 +74,20 @@ class Crime{
     }
 
     spread(){
-        let spread = this.random_utils.randomInRange(0, 2) === 0;
+        let spread = this.random_utils.randomInRange(0, 4) === 0;
         if(spread){
             let random_neighbor = this.random_utils.randomInArray(this.influence);
             if(this.canHaveCrime(random_neighbor)){
-                let neighbor = this.tower.getTenant(random_neighbor);
-                if(neighbor){
-                    let new_crime = new Crime(neighbor.home, this.tower);
-                    this.tower.addCrime(new_crime);
-                    neighbor.home.domElement.innerHTML = '<div id="'+neighbor.home.domElement.id+'" class="crime"></div>';
-                    this.removeJob(this.node);
+                let new_crime = new Crime(random_neighbor, this.tower);
+                this.tower.addCrime(new_crime);
+                random_neighbor.domElement.innerHTML = '<div id="'+random_neighbor.domElement.id+'" class="crime"></div>';
+                this.removeJob(this.node);
+
+                if(random_neighbor.type === "industrial-occupied"){
+                    random_neighbor.domElement.className = "node";
+                    // TODO: Select from 3 different criminal industries (plants at different growth stages)
+                    random_neighbor.domElement.classList.add("industrial-crime");
+                    random_neighbor.type = "industrial-crime";
                 }
             }
         }
@@ -113,6 +117,7 @@ class Crime{
         return node &&
             node.type !== null &&
             node.type !== "stairs" &&
+            !this.tower.getCrime(node) &&
             (node.type.includes("occupied") || node.type === "abandoned");
     }
 }
