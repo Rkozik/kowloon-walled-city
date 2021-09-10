@@ -2,11 +2,17 @@ export class BankAccount {
   residential_renters = new Map();
   commercial_renters = new Map();
   industrial_renters = new Map();
-  residential_rent = 50;
-  commercial_rent = 75;
-  industrial_rent = 100;
+  residential_rent = 500;
+  commercial_rent = 750;
+  industrial_rent = 1000;
   paid_today = 0;
   paid_yesterday = 0;
+  prize = {
+    lobby: 1000,
+    stairs: 500,
+    unit: 3500,
+    basement: 2500,
+  };
   constructor(public balance, clock?) {}
 
   deposit(money) {

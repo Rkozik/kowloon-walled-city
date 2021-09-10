@@ -45,6 +45,7 @@ body {
   background-image: url("img/ubg.png");
   background-color: #3a1c01;
 }
+
 .morning {
   background-color: #0d478a;
 }
@@ -59,8 +60,7 @@ body {
 }
 
 .sky-bg {
-  background-color: #2d80df;
-  transition: background-color 2s linear;
+  background-color: #55a2fa;
 }
 
 #floor_6 {

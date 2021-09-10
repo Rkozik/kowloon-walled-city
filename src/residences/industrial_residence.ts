@@ -45,15 +45,13 @@ export class IndustrialResidence {
       this.tower.demand.decreaseIndustrialDemand(1);
       this.bank_account.addRenter(this.node);
 
-      // Add job to job list
-      let new_job = new Job(this.tower);
-      new_job.setLocation(this.node);
-
-      let new_job2 = new Job(this.tower);
-      new_job2.setLocation(this.node);
-
-      this.tower.addJob(new_job);
-      this.tower.addJob(new_job2);
+      // Add jobs to jobs list
+      for (let job of ["Controller", "Mechanic"]) {
+        let new_job = new Job(this.tower);
+        new_job.setLocation(this.node);
+        new_job.setJobName(job);
+        this.tower.addJob(new_job);
+      }
     }
   }
 

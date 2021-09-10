@@ -1,8 +1,9 @@
 import { Neighbor } from "../neighbor";
+import { Tower } from "../tower";
 
 export class CircleArea {
   contents;
-  constructor(public radius, public center, public tower) {
+  constructor(public radius, public center, public tower: Tower) {
     this.contents = this.setContents();
   }
 

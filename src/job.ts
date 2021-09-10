@@ -1,10 +1,11 @@
 import { Route } from "./route";
+import { Tower } from "./tower";
 
 export class Job {
   location = null;
   worker = null;
   name = "";
-  constructor(public tower) {}
+  constructor(public tower: Tower) {}
 
   setJobName(name) {
     this.name = name;
@@ -25,6 +26,7 @@ export class Job {
 
   jobSearch(worker) {
     let job_list = this.tower.getAvailableJobs();
+    console.log(job_list);
     let route = new Route(this.tower);
     let job_distances = new Map();
     if (job_list.length > 0) {

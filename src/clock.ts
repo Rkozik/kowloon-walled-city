@@ -3,10 +3,12 @@ export class Clock {
   gameHHMM = "";
   gameAMPM = "";
   mapHH = new Map();
-  minute = (60 * 1000 * 0.5) / 24 / 60;
+  minute = 10; //(60 * 1000 * 0.5) / 24 / 60;
   day = 1;
   month = 1;
   quarter = 1;
+  sky = document.querySelectorAll(".sky-bg");
+  skyColor = "noon";
   constructor() {}
 
   run() {
@@ -30,8 +32,35 @@ export class Clock {
     }, this.minute);
   }
 
+  setSky(hour) {
+    const morning = "#0d478a";
+
+    const noon = "#55a2fa";
+
+    const afternoon = "#0d478a";
+
+    const night = "#021429";
+    if ((hour > 0 && hour < 6) || (hour >= 21 && hour <= 23)) {
+      this.skyColor = "#021429";
+    } else if (hour >= 6 && hour < 11) {
+      this.skyColor = "#0d478a";
+    } else if (hour >= 11 && hour < 15) {
+      this.skyColor = "#55a2fa";
+    } else if (hour >= 15 && hour < 21) {
+      this.skyColor = "#0d478a";
+    }
+
+    document
+      .querySelectorAll(".sky-bg")
+      .forEach(
+        (node: HTMLDivElement) => (node.style.backgroundColor = this.skyColor)
+      );
+    // console.log(this.skyColor);
+  }
+
   setGameHHMM() {
     let hours = Math.floor(this.gametime / 60);
+    this.setSky(hours);
     hours = this.mapHH.get(hours);
 
     let minutes = this.gametime % 60;

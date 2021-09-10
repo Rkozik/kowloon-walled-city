@@ -1,9 +1,11 @@
+import { BankAccount } from "../bank_account";
 import { Clock } from "../clock";
 import { Lobby } from "../lobby";
 import { CommercialResidence } from "../residences/commercial_residence";
 import { IndustrialResidence } from "../residences/industrial_residence";
 import { ResidentialResidence } from "../residences/residential_residence";
 import { Stairs } from "../stairs";
+import { Tower } from "../tower";
 import { Unit } from "../unit";
 import { Toolbar } from "./toolbar";
 
@@ -14,7 +16,7 @@ export class GUI {
   pointer = "pointer";
   dragging = false;
   nodes_hovered = new Map();
-  constructor(public tower, public bank_account) {
+  constructor(public tower: Tower, public bank_account: BankAccount) {
     this.toolbar = new Toolbar(this, this.clock, this.bank_account);
     this.gameboard = document.getElementById("gameboard");
   }
@@ -42,14 +44,20 @@ export class GUI {
   }
 
   drawNode(node) {
+    console.log(this.bank_account, node);
     switch (this.pointer) {
       case "lobby":
-        let lobby = new Lobby(node, this.tower, this.bank_account);
-        lobby.draw();
+        if (this.bank_account.balance >= this.bank_account.prize.lobby) {
+          let lobby = new Lobby(node, this.tower, this.bank_account);
+          lobby.draw();
+        }
         break;
       case "tenant":
-        let unit = new Unit(node, this.tower, this.clock, this.bank_account);
-        unit.draw();
+        const possition = node.floor_id > 6 ? "unit" : "basement";
+        if (this.bank_account.balance >= this.bank_account.prize[possition]) {
+          let unit = new Unit(node, this.tower, this.clock, this.bank_account);
+          unit.draw();
+        }
         break;
       case "residential":
         let residential_residence = new ResidentialResidence(
@@ -76,8 +84,10 @@ export class GUI {
         industrial_residence.draw();
         break;
       case "stairs":
-        let stairs = new Stairs(node, this.tower, this.bank_account);
-        stairs.draw();
+        if (this.bank_account.balance >= this.bank_account.prize.stairs) {
+          let stairs = new Stairs(node, this.tower, this.bank_account);
+          stairs.draw();
+        }
         break;
       default:
         break;

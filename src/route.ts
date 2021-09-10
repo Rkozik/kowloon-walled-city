@@ -27,7 +27,7 @@ export class Route {
     }
 
     if (
-      neighbors.easternNeighbor().type !== null &&
+      neighbors.easternNeighbor().type &&
       neighbors.easternNeighbor().type !== "balcony" &&
       neighbors.easternNeighbor().type !== "clothes-line" &&
       !visited.includes(node)

@@ -1,8 +1,11 @@
 import { CircleArea } from "./gui/circle_area";
+import { Tower } from "./tower";
 
 export class Police {
   area = null;
-  constructor(public node, public tower) {}
+  constructor(public node, public tower: Tower) {
+    this.draw();
+  }
 
   draw() {
     // TODO: implement draw radius of effect on hover, erase circle on mouseout

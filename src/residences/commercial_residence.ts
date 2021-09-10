@@ -46,13 +46,12 @@ export class CommercialResidence {
       this.bank_account.addRenter(this.node);
 
       // Add jobs to jobs list
-      let new_job_1 = new Job(this.tower);
-      new_job_1.setLocation(this.node);
-      this.tower.addJob(new_job_1);
-
-      let new_job_2 = new Job(this.tower);
-      new_job_2.setLocation(this.node);
-      this.tower.addJob(new_job_2);
+      for (let job of ["manager", "assistent"]) {
+        let new_job = new Job(this.tower);
+        new_job.setLocation(this.node);
+        new_job.setJobName(job);
+        this.tower.addJob(new_job);
+      }
     }
   }
 

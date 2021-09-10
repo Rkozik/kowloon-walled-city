@@ -1,5 +1,6 @@
 import { Crime } from "./crime";
 import { Neighbor } from "./neighbor";
+import { Police } from "./police";
 import { Route } from "./route";
 import { DrawUtils } from "./utils/draw_utils";
 
@@ -7,10 +8,12 @@ export class Unit {
   neighbors;
   utils;
   crime;
+  police;
   constructor(public node, public tower, public clock, public bank_account) {
     this.neighbors = new Neighbor(this.node, this.tower);
     this.utils = new DrawUtils();
     this.crime = new Crime(this.node, this.tower);
+    this.police = new Police(this.node, this.tower);
   }
 
   draw() {
@@ -53,6 +56,7 @@ export class Unit {
 
     this.isConnected();
     this.collectRent();
+    this.police.draw();
   }
 
   handleSouthernNeighborBelowGround() {

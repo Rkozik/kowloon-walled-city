@@ -1,7 +1,9 @@
+import { BankAccount } from "../bank_account";
+
 export class Toolbar {
   gameboard;
   toolbar;
-  constructor(public gui, public clock, public bank_account) {
+  constructor(public gui, public clock, public bank_account: BankAccount) {
     this.gameboard = document.getElementById("gameboard");
     this.toolbar = document.createElement("div");
     this.toolbar.id = "toolbar";
