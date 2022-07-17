@@ -1,0 +1,435 @@
+@font-face {
+  font-family: "pxlxxlBold";
+  src: url("./fonts/pxlxxlBold.eot"); /* IE9 Compat Modes */
+  src: url("./fonts/pxlxxlBold.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./fonts/pxlxxlBold.otf") format("opentype"),
+    /* Open Type Font */ url("./fonts/pxlxxlBold.svg") format("svg"),
+    /* Legacy iOS */ url("./fonts/pxlxxlBold.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("./fonts/pxlxxlBold.woff") format("woff"),
+    /* Modern Browsers */ url("./fonts/pxlxxlBold.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+b {
+  font-family: pxlxxlBold;
+}
+
+body {
+  cursor: url("img/gui/pointer-ico.png"), pointer;
+  margin: 0;
+}
+#gameboard-outer-border {
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+}
+#gameboard {
+  margin: 0 auto;
+  width: 100%;
+  height: 768px;
+  background-color: lightgrey;
+  overflow-y: scroll;
+  position: relative;
+}
+.floor {
+  display: flex;
+  width: 2672px;
+  height: 50px;
+}
+
+/** Background styles **/
+.underground-bg {
+  background-image: url("img/ubg.png");
+  background-color: #3a1c01;
+}
+
+.morning {
+  background-color: #0d478a;
+}
+.noon {
+  background-color: #55a2fa;
+}
+.afternoon {
+  background-color: #2d80df;
+}
+.night {
+  background-color: #021429;
+}
+
+.sky-bg {
+  background-color: #55a2fa;
+}
+
+#floor_6 {
+  background-image: url("img/ground-bg.png");
+}
+
+.birb {
+  width: 12px;
+  height: 50px;
+  background-image: url(img/birb.png);
+  position: absolute;
+  display: inline-block;
+  z-index: 2;
+}
+.tree-solid {
+  width: 26px;
+  height: 50px;
+  background-image: url(img/tree-solid.png);
+  background-position-y: -4px;
+  position: absolute;
+  display: inline-block;
+  z-index: 2;
+}
+.tree-hollow {
+  width: 26px;
+  height: 50px;
+  background-image: url(img/tree-hollow.png);
+  background-position-y: -4px;
+  position: absolute;
+  display: inline-block;
+  z-index: 2;
+}
+.bench {
+  width: 22px;
+  height: 50px;
+  background-image: url(img/bench.png);
+  background-position-y: -4px;
+  position: absolute;
+  display: inline-block;
+  z-index: 2;
+}
+.fence-small {
+  width: 34px;
+  height: 50px;
+  background-image: url(img/fence-small.png);
+  background-position-y: -4px;
+  position: absolute;
+  display: inline-block;
+  z-index: 1;
+}
+.bus {
+  width: 68px;
+  height: 56px;
+  background-image: url(img/bus.png);
+  position: absolute;
+  bottom: -1393px;
+  right: -320px;
+  display: inline-block;
+  z-index: 2;
+}
+
+/** Nodes **/
+.node-container {
+  z-index: 100;
+  width: auto;
+  margin: 0 auto;
+  display: flex;
+}
+.node {
+  display: inline-block;
+  width: 48px;
+  height: 50px;
+  z-index: 101;
+}
+/** Building basics **/
+.lobby {
+  background-color: #e4e4e4;
+  background-image: url("img/rooms/lobby-bg.png");
+}
+.empty {
+  background-color: #e4e4e4;
+  background-image: url("img/rooms/empty_1x1.png");
+}
+.empty-basement {
+  background-color: #989898;
+  background-image: url("img/rooms/empty_1x1.png");
+}
+.entrance-east {
+  background-image: url("img/rooms/entrance-east.png");
+}
+.entrance-west {
+  background-image: url("img/rooms/entrance-west.png");
+}
+.balcony-east {
+  background-image: url("img/rooms/balcony-east.png");
+}
+.balcony-west {
+  background-image: url("img/rooms/balcony-west.png");
+}
+.balcony-top-east {
+  background-image: url("img/rooms/balcony-top-east.png");
+}
+.balcony-top-west {
+  background-image: url("img/rooms/balcony-top-west.png");
+}
+.clothes-line-n2n {
+  background-image: url("img/rooms/clothes-line.png");
+}
+.basement-wall-east {
+  background-image: url("img/rooms/basement-wall-east.png");
+}
+.basement-wall-west {
+  background-image: url("img/rooms/basement-wall-west.png");
+}
+.basement-wall-n2n {
+  background-image: url("img/rooms/basement-wall-n2n.png");
+}
+.stairs-r {
+  background-color: #989898;
+  background-image: url("img/rooms/stairs-r.png");
+}
+.stairs-l {
+  background-color: #989898;
+  background-image: url("img/rooms/stairs-l.png");
+}
+.stairs-up-r {
+  background-color: #e4e4e4;
+  background-image: url("img/rooms/stairs-up-r.png");
+}
+.stairs-down-r {
+  background-color: #d1d1d0;
+  background-image: url("img/rooms/stairs-down-r.png");
+}
+.stairs-down-l {
+  background-color: #d1d1d0;
+  background-image: url("img/rooms/stairs-down-l.png");
+}
+.stairs-down-r-underground {
+  background-color: #989898;
+  background-image: url("img/rooms/stairs-down-r.png");
+}
+.stairs-down-l-underground {
+  background-color: #989898;
+  background-image: url("img/rooms/stairs-down-l.png");
+}
+.stairs-up-l-underground {
+  background-color: #989898;
+  background-image: url("img/rooms/stairs-up-l.png");
+}
+.stairs-down-lobby-r {
+  background-color: #e4e4e4;
+  background-image: url("img/rooms/stairs-up-lobby-r.png");
+}
+.stairs-down-lobby-l {
+  background-color: #e4e4e4;
+  background-image: url("img/rooms/stairs-up-lobby-l.png");
+}
+
+/** Residences **/
+.residential-empty {
+  background-color: #63b98b;
+  background-image: url("img/rooms/empty_1x1.png");
+}
+.commercial-empty {
+  background-color: #4f8cba;
+  background-image: url("img/rooms/empty_1x1.png");
+}
+.industrial-empty {
+  background-color: #e1b746;
+  background-image: url("img/rooms/empty_1x1.png");
+}
+.residential-occupied {
+  background-color: #63b98b;
+  background-image: url("img/residences/residential-occupied.png");
+}
+.residential-occupied-1 {
+  background-color: #63b98b;
+  background-image: url("img/residences/residential-occupied-1.png");
+}
+.residential-occupied-2 {
+  background-color: #63b98b;
+  background-image: url("img/residences/residential-occupied-2.png");
+}
+.residential-occupied-3 {
+  background-color: #63b98b;
+  background-image: url("img/residences/residential-occupied-3.png");
+}
+
+.commercial-occupied {
+  background-color: #4f8cba;
+  background-image: url("img/residences/commercial-occupied.png");
+}
+.commercial-occupied-1 {
+  background-color: #4f8cba;
+  background-image: url("img/residences/commercial-occupied-1.png");
+}
+.commercial-occupied-2 {
+  background-color: #4f8cba;
+  background-image: url("img/residences/commercial-occupied-2.png");
+}
+.industrial-occupied {
+  background-color: #e1b746;
+  background-image: url("img/residences/industrial-occupied.png");
+}
+.industrial-occupied-1 {
+  background-color: #e1b746;
+  background-image: url("img/residences/industrial-occupied-1.png");
+}
+.industrial-occupied-2 {
+  background-color: #e1b746;
+  background-image: url("img/residences/industrial-occupied-2.png");
+}
+
+.abandoned {
+  background-color: #e4e4e4;
+}
+.crime {
+  background-image: url("img/gui/crime.png");
+  height: 50px;
+}
+.industrial-crime {
+  background-color: #e1b746;
+  background-image: url("img/residences/industrial-crime.png");
+}
+
+/** Toolbar **/
+#toolbar {
+  top: 0;
+  left: 0;
+  width: auto;
+  padding: 10px 0 6px 0;
+  position: sticky;
+  background-color: #4a4a4b;
+  z-index: 102;
+}
+.toolbar-ico {
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+  display: inline-block;
+  z-index: 102;
+}
+.toolbar-ico:hover {
+  cursor: pointer;
+}
+.toolbar-divider {
+  background-color: #848586;
+  height: 28px;
+  width: 2px;
+  margin: 0 0 0 14px;
+  display: inline-block;
+}
+#residential-ico {
+  background-image: url("img/gui/residential-ico.png");
+}
+#commercial-ico {
+  background-image: url("img/gui/commercial-ico.png");
+}
+#industrial-ico {
+  background-image: url("img/gui/industrial-ico.png");
+}
+#lobby-ico {
+  background-image: url("img/gui/lobby-ico.png");
+}
+#tenant-ico {
+  background-image: url("img/gui/tenant-ico.png");
+}
+#stairs-ico {
+  background-image: url("img/gui/stairs-ico.png");
+}
+#pointer-ico {
+  background-image: url("img/gui/pointer-ico.png");
+  width: 22px;
+  top: 1px;
+  position: relative;
+}
+
+.no-connection {
+  background-image: url("img/gui/no-connection.png");
+  width: 48px;
+  height: 50px;
+}
+
+.no-job {
+  background-image: url("img/gui/no-job.png");
+  width: 48px;
+  height: 50px;
+}
+
+/** Demand **/
+#demand-container {
+  width: 60px;
+  height: 14px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 6px;
+  float: right;
+}
+
+.demand-bar {
+  background-color: #848486;
+  width: 60px;
+  height: 4px;
+}
+
+#residential-demand {
+  background-color: #63b98b;
+  height: 4px;
+  max-width: 60px;
+  width: 0;
+}
+
+#commercial-demand {
+  background-color: #4f8cba;
+  height: 4px;
+  margin-top: 4px;
+  max-width: 60px;
+  width: 0;
+}
+
+#industrial-demand {
+  background-color: #e1b746;
+  height: 4px;
+  margin-top: 4px;
+  max-width: 60px;
+  width: 0;
+}
+
+/** Game Clock **/
+#game-clock-container {
+  display: inline-block;
+  float: right;
+  color: #e7e7e7;
+  font-size: 25px;
+  margin-right: 10px;
+  margin-top: 2px;
+  width: 90px;
+}
+#game-clock {
+  display: inline-block;
+}
+#game-clock-am-pm {
+  display: inline-block;
+  right: 10px;
+  position: absolute;
+}
+
+/** Wallet **/
+#wallet {
+  display: inline-block;
+  margin-right: 10px;
+  float: right;
+  color: #e7e7e7;
+  font-size: 25px;
+  margin-top: 2px;
+}
+
+/** Rental Income **/
+#rental-income {
+  display: inline-block;
+  margin-right: 10px;
+  color: #63b98b;
+  font-size: 25px;
+  margin-top: 2px;
+  float: right;
+}
+
+/** Circle Area **/
+.circle-area {
+  background-color: #4a4a4b;
+  opacity: 0.1;
+}
